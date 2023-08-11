@@ -1,0 +1,14 @@
+node_modules
+dist
+.vscode
+.github
+.husky
+dist
+.DS_Store
+*.local
+.eslintignore
+.eslintrc.cjs
+.prettierrc.js
+vite.config.ts
+vite-env.d.ts
+commitlint.config.js
