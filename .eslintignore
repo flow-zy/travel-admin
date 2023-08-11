@@ -11,4 +11,4 @@ dist
 .prettierrc.js
 vite.config.ts
 vite-env.d.ts
-commitlint.config.js
+commitlint.config.cjs
