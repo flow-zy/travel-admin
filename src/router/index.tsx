@@ -29,7 +29,10 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/:catchAll(.*)',
-    element: Lazy(async () => await import('@/views/NotFound'))
+    element: Lazy(async () => await import('@/views/NotFound')),
+    handle:{
+      title:'404'
+    }
   }
 ]
 
