@@ -48,7 +48,7 @@ const useAxios = <T>(config:AxiosRequestConfig):ResponseData<T> =>{
         setData(data)
         setMessage(message)
         setCode(code)
-      } catch (error ) {
+      } catch (error:any) {
         // setMessage(error)
         // setMessage(codeMessage[error.status])
         setMessage(error.message)
