@@ -1,10 +1,10 @@
 name: Deploy
 
 on:
-  # 每当 push 到 master 分支时触发部署
+  # 每当 push 到 main 分支时触发部署
   push:
     branches:
-      - master
+      - main
 
 jobs:
   Deploy:
