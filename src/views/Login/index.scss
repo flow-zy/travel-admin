@@ -1,0 +1,13 @@
+.login{
+ &-page{
+background:url(@/assets/login_bg.svg) no-repeat 0 0/cover;
+ } 
+&-box{
+  width:90%;
+  height:90%;
+background-color:rgba(252,252,252,0.6);
+}
+&-left{
+  width:48%;
+}
+} 
