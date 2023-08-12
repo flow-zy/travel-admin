@@ -18,7 +18,6 @@ const pathArr: PathObject[] = []
 const output: RouteObject[] = []
 Object.entries(modules).map(([key, element]) => {
   const path = key.replace('/src/views', '').replace('/index.tsx', '').replace('/', '').toLowerCase() || '/'
-  console.log("🚀 ~ file: index.tsx:18 ~ Object.entries ~ path:", path)
   
   if (!['index', 'notfound', 'login'].includes(path)) {
     pathArr.push({
