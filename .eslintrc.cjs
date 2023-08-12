@@ -34,6 +34,9 @@ module.exports = {
     semi:['error','never'],
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/no-namespace':0,
-    '@typescript-eslint/explicit-function-return-type':0
+    '@typescript-eslint/explicit-function-return-type':0,
+    '@typescript-eslint/no-misused-promises': 0,
+    '@typescript-eslint/consistent-indexed-object-style': 0,
+    '@typescript-eslint/no-dynamic-delete':0
   },
 }
