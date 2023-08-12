@@ -37,6 +37,10 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type':0,
     '@typescript-eslint/no-misused-promises': 0,
     '@typescript-eslint/consistent-indexed-object-style': 0,
-    '@typescript-eslint/no-dynamic-delete':0
+    '@typescript-eslint/no-dynamic-delete':0,
+    'array-callback-return':0,
+    '@typescript-eslint/strict-boolean-expressions':0,
+    '@typescript-eslint/prefer-optional-chain': 0,
+    '@typescript-eslint/no-unused-expressions':0
   },
 }
