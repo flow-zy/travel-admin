@@ -12,3 +12,5 @@ dist
 vite.config.ts
 vite-env.d.ts
 commitlint.config.cjs
+tailwind.config.cjs
+postcss.config.cjs
