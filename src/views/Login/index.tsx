@@ -40,7 +40,7 @@ const Login: FC = () => {
     if (code === 200) {
       void messageApi.open({
         type: 'success',
-        content: `${message},稍后将跳转至登录页`,
+        content: `${message},稍后将跳转至首页`,
         onClose() {
           dispatch(login(data))
           navigate('/')
