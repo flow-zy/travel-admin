@@ -5,15 +5,15 @@ const menu: IMenu[] = [
     name: '首页',
     iconClass: 'home',
     path: '',
-    auth:'all'
+    auth: 'all',
   }, {
     name: '分类管理',
-    iconClass:'bookmark',
+    iconClass: 'bookmark',
     path: 'category',
-    auth:'admin',
+    auth: 'admin',
     children: [
-      {name:''}
-    ]
-  }
+      {name: ''},
+    ],
+  },
 ]
 export default menu

@@ -9,14 +9,14 @@ interface Options {
 
 // 登录
 export const handleLogin = (options:Options) => {
-  const {body} =options
-  const data = JSON.parse(body)  
-  const current = userList.find((user: IUser) => user.username === data.username && user.password ===data.password && user.role===data.role)
-  if (current ===undefined) {
+  const {body} = options
+  const data = JSON.parse(body)
+  const current = userList.find((user: IUser) => user.username === data.username && user.password === data.password && user.role === data.role)
+  if (current === undefined) {
     return {
       message: '账号或者密码错误',
       code: 201,
-      data:null
+      data: null,
     }
   }
   return {
@@ -25,7 +25,7 @@ export const handleLogin = (options:Options) => {
     data: {
       ...current,
       password: '',
-      token:uuid()
-    }
+      token: uuid(),
+    },
   }
 }

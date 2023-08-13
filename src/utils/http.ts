@@ -17,22 +17,22 @@ const fetchData = async <T>(config: AxiosRequestConfig): Promise<ResponseData<T>
 
   try {
     // 请求拦截器
-    requestInterceptor = instance.interceptors.request.use((requestConfig) => {
+    requestInterceptor = instance.interceptors.request.use((requestConfig) =>
       // 可以在发送请求前进行一些操作，如添加认证信息等
-      return requestConfig
-    }, async (error: AxiosError) => {
+      requestConfig
+    , async(error: AxiosError) =>
       // 请求出错时的处理逻辑
-      return await Promise.reject(error)
-    })
+      await Promise.reject(error),
+    )
 
     // 响应拦截器
-    responseInterceptor = instance.interceptors.response.use((response: AxiosResponse<ResponseData<T>>) => {
+    responseInterceptor = instance.interceptors.response.use((response: AxiosResponse<ResponseData<T>>) =>
       // 可以在收到响应后进行一些操作，如处理错误码，转换返回数据等
-      return response
-    }, async (error: AxiosError) => {
+      response
+    , async(error: AxiosError) =>
       // 响应出错时的处理逻辑
-      return await Promise.reject(error)
-    })
+      await Promise.reject(error),
+    )
 
     // 发送请求
     const response: AxiosResponse<ResponseData<T>> = await instance(config)

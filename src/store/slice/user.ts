@@ -7,26 +7,26 @@ interface UserState extends IUser {
 }
 
 const initialState: UserState = {
-  username:'',
-  password:''
+  username: '',
+  password: '',
 }
 
-export const useSlice=createSlice({
-  name:'user',
+export const useSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
     login(state, action: PayloadAction<IUser | null>) {
       const data = action.payload as IUser
-      Object.entries(data).forEach(([key,value])=>{
-        if(key==='token'){
+      Object.entries(data).forEach(([key, value]) => {
+        if (key === 'token') {
           setToken(value)
-          delete data [key]
+          delete data[key]
         }
-        state[key]=value
+        state[key] = value
       })
-  }
-}
-})  
+    },
+  },
+})
 
 export const { login } = useSlice.actions
 

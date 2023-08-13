@@ -10,32 +10,30 @@ import './index.scss'
 import left from '@/assets/login_left.png'
 const options = [{
   label: 'admin',
-  value: 'admin'
+  value: 'admin',
 }, {
   label: 'user',
-  value: 'user'
+  value: 'user',
 }]
 
 const Login: FC = () => {
   const [form] = Form.useForm()
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [messageApi, contextHolder] = message.useMessage()
   const [loginForm, setLoginForm] = useState<IUser>({
     username: '',
     password: '',
-    role: 'admin'
+    role: 'admin',
   })
   const radioChange = ({ target: { value } }: RadioChangeEvent) => {
-    setLoginForm((form) => {
-      return { ...form, role: value }
-    })
+    setLoginForm((form) => ({ ...form, role: value }))
   }
-  const onFinish = async (values: IUser) => {
+  const onFinish = async(values: IUser) => {
     const { data, code, message } = await loginApi<IUser>({
       url: '/login',
       method: 'get',
-      data: values
+      data: values,
     })
     if (code === 200) {
       void messageApi.open({
@@ -46,13 +44,18 @@ const Login: FC = () => {
           navigate('/')
         },
       })
+    } else {
+      void messageApi.open({
+        type: 'error',
+        content: message,
+      })
     }
   }
 
   const onFinishFailed = () => {
     void messageApi.open({
       type: 'error',
-      content: '用户名或密码错误'
+      content: '用户名或密码错误',
     })
   }
   const reset = () => {

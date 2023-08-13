@@ -4,7 +4,7 @@ import page from '@/data/page'
 // 获取views  文件夹下的所有组件
 const modules = import.meta.glob('@/views/**/*.tsx', {
   eager: true,
-  as: 'url'
+  as: 'url',
 })
 interface IHandle {
   title:string | any
@@ -17,15 +17,17 @@ interface PathObject {
 const pathArr: PathObject[] = []
 const output: RouteObject[] = []
 Object.entries(modules).map(([key, element]) => {
-  const path = key.replace('/src/views', '').replace('/index.tsx', '').replace('/', '').toLowerCase() || '/'
-  
+  const path = key.replace('/src/views', '').replace('/index.tsx', '')
+    .replace('/', '')
+    .toLowerCase() || '/'
+
   if (!['index', 'notfound', 'login'].includes(path)) {
     pathArr.push({
       path,
       component: element,
       handle: {
-        title: page[path]
-      }
+        title: page[path],
+      },
     })
   }
 })
@@ -40,9 +42,9 @@ pathArr.forEach((item) => {
     } else {
       const newLevel: RouteObject = {
         path,
-        children: []
+        children: [],
       }
-      index === paths.length - 1 ? newLevel.element = Lazy(async () => await import(item.component)) : ''
+      index === paths.length - 1 ? newLevel.element = Lazy(async() => await import(/* @vite-ignore */ item.component)) : ''
       currentLevel.push(newLevel)
       currentLevel = newLevel.children as RouteObject[]
     }
@@ -54,33 +56,33 @@ const routes: RouteObject[] = [
     path: '/',
     element: <AuthRoute></AuthRoute>,
     handle: {
-      title: '首页'
+      title: '首页',
     },
     children: [
       {
         path: '/',
-        element: Lazy(async () => await import('@/views/Index')),
+        element: Lazy(async() => await import(/* @vite-ignore */ '@/views/Index')),
         handle: {
-          title: '首页'
-        }
+          title: '首页',
+        },
       },
-      ...output
-    ]
+      ...output,
+    ],
   },
   {
     path: '/login',
-    element: Lazy(async () => await import('@/views/Login')),
+    element: Lazy(async() => await import(/* @vite-ignore */ '@/views/Login')),
     handle: {
-      title: '登录'
-    }
+      title: '登录',
+    },
   },
   {
     path: '/:catchAll(.*)',
-    element: Lazy(async () => await import('@/views/NotFound')),
+    element: Lazy(async() => await import(/* @vite-ignore */ '@/views/NotFound')),
     handle: {
-      title: '404'
-    }
-  }
+      title: '404',
+    },
+  },
 ]
 
 export default routes
