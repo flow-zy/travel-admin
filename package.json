@@ -1,5 +1,5 @@
 {
-  "name": "react-admin",
+  "name": "shop-admin",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -58,7 +58,6 @@
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-standard": "^34.0.0",
     "stylelint-config-standard-scss": "^10.0.0",
-    "stylelint-order": "^6.0.3",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"

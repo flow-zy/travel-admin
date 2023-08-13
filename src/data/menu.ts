@@ -4,7 +4,7 @@ const menu: IMenu[] = [
   {
     name: '首页',
     iconClass: 'home',
-    path: '',
+    path: '/',
     auth: 'all',
   }, {
     name: '分类管理',
@@ -12,7 +12,7 @@ const menu: IMenu[] = [
     path: 'category',
     auth: 'admin',
     children: [
-      {name: ''},
+      {name: '添加分类',path:'category/add',iconClass:'plus-square-o'},
     ],
   },
 ]

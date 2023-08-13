@@ -15,7 +15,7 @@ export interface IMenu {
   iconClass?: string
   children?: IMenu[]
   auth?: string
-  path?: string
+  path: string
 }
 
 // 页面数据
