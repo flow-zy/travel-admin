@@ -4,15 +4,15 @@ const menu: IMenu[] = [
   {
     name: '首页',
     iconClass: 'home',
-    path: '/',
+    path: '/home',
     auth: 'all',
   }, {
     name: '分类管理',
     iconClass: 'bookmark',
-    path: 'category',
+    path: '/category',
     auth: 'admin',
     children: [
-      {name: '添加分类',path:'category/add',iconClass:'plus-square-o'},
+      {name: '添加分类',path:'/category/add',iconClass:'plus-square-o'},
     ],
   },
 ]

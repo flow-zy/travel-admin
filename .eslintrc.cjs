@@ -46,6 +46,7 @@ module.exports = {
     '@typescript-eslint/ban-types': 'off', // 禁止使用特定类型
     '@typescript-eslint/no-non-null-assertion': 'off', // 不允许使用后缀运算符的非空断言(!)
     'react-hooks/rules-of-hooks': 'off',
-    'react-hooks/exhaustive-deps': 'off'
+    'react-hooks/exhaustive-deps': 'off',
+    '@typescript-eslint/restrict-template-expressions':0
   },
 }

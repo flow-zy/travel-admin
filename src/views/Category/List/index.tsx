@@ -1,11 +1,11 @@
 import {FC} from 'react'
 
-const Add:FC=()=> {
+const List:FC=()=> {
   return (
     <div>
-      Add
+      List
     </div>
   )
 }
 
-export default Add
+export default List
