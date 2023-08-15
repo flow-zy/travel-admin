@@ -1,17 +1,18 @@
 import { Loading } from './components'
-import  { useState, useEffect } from 'react'
 import type {FC} from 'react'
 import routes from './router'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
-import type {RouteObject}  from 'react-router-dom'
+import {ConfigProvider } from 'antd'
+import { useSelector } from 'react-redux'
+import { type RootState } from '@/store'
 const App:FC = () => {
-  const [router] = useState<RouteObject[]>(routes)
-  useEffect(() => {
-  }, [])
+  const config =useSelector((state:RootState)=> state.setting)
   return (
     <div className="app">
-      <RouterProvider router={createHashRouter(router)}></RouterProvider>
+      <ConfigProvider {...config}>
+      <RouterProvider router={createHashRouter(routes)}></RouterProvider>
       <Loading/>
+      </ConfigProvider>
     </div>
   )
 }

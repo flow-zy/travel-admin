@@ -1,3 +1,4 @@
 import {mock} from 'mockjs'
 import {handleLogin} from '@/server'
-mock('/api/login', handleLogin)
+const api=import.meta.env.VITE_APP_BASE
+mock(`${api}/login`, handleLogin)

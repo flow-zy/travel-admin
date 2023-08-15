@@ -47,6 +47,8 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off', // 不允许使用后缀运算符的非空断言(!)
     'react-hooks/rules-of-hooks': 'off',
     'react-hooks/exhaustive-deps': 'off',
-    '@typescript-eslint/restrict-template-expressions':0
+    '@typescript-eslint/restrict-template-expressions':0,
+    '@typescript-eslint/await-thenable':0,
+    '@typescript-eslint/no-confusing-void-expression':0
   },
 }

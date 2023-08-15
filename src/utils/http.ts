@@ -8,7 +8,7 @@ export interface ResponseData<T> {
 
 const fetchData = async <T>(config: AxiosRequestConfig): Promise<ResponseData<T>> => {
   const instance: AxiosInstance = axios.create({
-    baseURL: '/api',
+    baseURL: import.meta.env.VITE_APP_BASE,
     timeout: 3000,
   })
 

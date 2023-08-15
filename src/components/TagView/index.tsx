@@ -1,7 +1,7 @@
 import { type FC ,useState,useEffect} from 'react'
 import {Tabs ,type TabsProps} from 'antd'
 import {useLocation,useNavigate} from 'react-router-dom'
-import { type MenuItem} from '../../index'
+import { type MenuItem} from '@/layout'
 interface Props {
   tags:MenuItem[]
 }
