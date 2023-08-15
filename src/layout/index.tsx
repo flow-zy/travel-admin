@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { type FC, useState, useEffect } from 'react'
 import { Layout, Dropdown, Space, Avatar, Tooltip, Menu, Spin,Card } from 'antd'
-import type { MenuProps, TooltipProps, } from 'antd'
+import type { MenuProps, TooltipProps } from 'antd'
 import { Logo } from '@/components'
 import avatar from '@/assets/avatar.png'
 import { useSelector } from 'react-redux'
@@ -14,8 +14,7 @@ import menuData from '@/data/menu'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { type IMenu } from '@/types'
 import TagView from './components/TagView'
-import Breadcrumb from './components/Breadcrumb'
-export type MenuItem = Required<MenuProps>['items'][number];
+type MenuItem = Required<MenuProps>['items'][number];
 // menu item
 const getItem = (
   label: React.ReactNode,
@@ -33,7 +32,7 @@ const getItem = (
   } as MenuItem
 }
 const { Header, Content, Sider } = Layout
-const dropItems: MenuProps['items'] = [
+const items: MenuProps['items'] = [
   {
     label: '个人信息',
     key: '1',
@@ -75,32 +74,42 @@ const generateMenus = (menuData: IMenu[]): MenuItem[] => {
   return menuItems
 }
 const menuList = generateMenus(menuData)
+const rootSubmenuKeys:string[] =menuList.map(menu=>menu?.key as string) 
 const LayOut: FC = () => {
   const { pathname } = useLocation()
   const userInfo = useSelector((state: RootState) => state.user)
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
-  const [tags, setTags] = useState<TabsProps['items']>([{ key: '/home', icon: 'fa fa-home ant-menu-item-icon', label: '首页' }])
+  const [tags, setTags] = useState<MenuProps['items']>([{ key: '/home', icon: 'fa fa-home ant-menu-item-icon', label: '首页' }])
   const [defaultKey, setDefault] = useState<string[]>([pathname])
   const [loading, setLoading] = useState(true)
+  const [openKeys, setOpenKeys] = useState<string[]>([])
   const navigate = useNavigate()
   const changeRoute: MenuProps['onClick'] = (s): void => {
     const { key, domEvent } = s
-    // console.log(domEvent.target)
-    const parent = domEvent.target?.parentElement
+    const parent = (domEvent.target as HTMLElement)?.parentElement
     navigate(key)
     const tag: MenuItem = {
       key,
-      icon: parent.querySelector('i').className,
-      label: parent.querySelector('span').innerText
+      icon: parent &&parent.querySelector('i')?.className,
+      label:parent&& parent.querySelector('span')?.innerText
     }
     setTags(() => {
-      const index = tags.findIndex(item =>item &&tag &&  item.key === tag.key)
+      const index = tags && tags.findIndex(item =>item &&tag &&  item.key === tag.key)
       if (index === -1) {
-        return [...tags, tag]
+        return tags && [...tags, tag]
       }
-      return [...tags]
+      return tags && [...tags]
     })
   }
+  const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
+    const latestOpenKey = keys.find((key) => !openKeys.includes(key))
+    if (!rootSubmenuKeys.includes(latestOpenKey!)) {
+      setOpenKeys(keys)
+    } else {
+      setOpenKeys(latestOpenKey ? [latestOpenKey] : [])
+    }
+  }
+
   useEffect(() => {
     setDefault([pathname])
     const arr = pathname.split('/').splice(1)
@@ -115,12 +124,13 @@ const LayOut: FC = () => {
         }
       })[0] as MenuItem
        setTags(() => {
-      const index = tags.findIndex(item =>item && tag && item.key === tag.key)
+      const index =tags&& tags.findIndex(item =>item && tag && item.key === tag.key)
       if (index === -1) {
-        return [...tags, tag]
+        return tags&& [...tags, tag]
       }
-      return [...tags]
+      return  tags&& [...tags]
     })
+    setOpenKeys([`/${arr[0]}`])
     }
   }, [])
   useEffect(() => {
@@ -130,16 +140,19 @@ const LayOut: FC = () => {
   return (
     <Layout className='layout'>
       {/* 菜单栏 */}
-      <Sider width={isCollapsed ? 60 : 200} trigger={null} collapsible style={{ minHeight: '100vh' }} className='bg-slate-200' collapsed={isCollapsed}>
+      <Sider width={isCollapsed ? 60 : 200} trigger={null} collapsible style={{ minHeight: '100vh' }} className='bg-slate-200'  collapsed={isCollapsed}>
         <Logo isCollapse={isCollapsed} />
         <Menu
           defaultSelectedKeys={defaultKey}
           mode="inline"
           theme="dark"
+          openKeys={openKeys}
+          selectedKeys={defaultKey}
           triggerSubMenuAction="click"
-          inlineCollapsed={isCollapsed}
           items={menuList ?? []}
-          onClick={changeRoute} />
+          onClick={changeRoute}
+          onOpenChange={onOpenChange}
+        />
       </Sider>
       {/* 中间部分 */}
       <Layout>{/* 头部 */}
@@ -151,11 +164,10 @@ const LayOut: FC = () => {
                   <MenuUnfoldOutlined style={{ fontSize: '20px' }} onClick={() => { setIsCollapsed(!isCollapsed) }} />
               }
               {/* 面包屑 */}
-              <Breadcrumb/>
             </div>
             <div className="header-right flex justify-between items-center w-1/5">
               {tools.map((tool, index) => (<Tooltip placement={tool.placement} key={index} title={tool.title}>{tool.children}</Tooltip>))}
-              <Dropdown menu={{ dropItems }}>
+              <Dropdown menu={{ items }}>
                 <a onClick={(e) => { e.preventDefault() }}>
                   <Space>
                     <Avatar src={avatar} size={48} alt={userInfo.username || '头像'} />
@@ -168,7 +180,7 @@ const LayOut: FC = () => {
         {/* 内容区 */}
         <Content>
           {/* 动态tag */}
-            <TagView tags={tags} />
+            <TagView tags={tags ?? []} />
           <Spin spinning={loading} tip="Loading...">
            <Card style={{padding:'15px',borderTop:'none',backgroundColor:'transparent'}} bodyStyle={{backgroundColor:'#fff'}}> 
               <Outlet />
