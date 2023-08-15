@@ -14,7 +14,7 @@ import menuData from '@/data/menu'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { type IMenu } from '@/types'
 import TagView from './components/TagView'
-type MenuItem = Required<MenuProps>['items'][number];
+export type MenuItem = Required<MenuProps>['items'][number];
 // menu item
 const getItem = (
   label: React.ReactNode,
