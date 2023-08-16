@@ -5,18 +5,20 @@ const data:IUser[] = [
     username: 'admin',
     password: '123456',
     gender: '男',
-    role: 'admin',
+    role: `document,users,category,orders,carts,products,settings,roles,permissions,profile,logs,notifications,addresses,payments,gateways`,
     phone: '13838383838',
     email: '1@qq.com',
+    avatar:''
   },
   {
     id: 'ad257103-864c-4331-a1c1-092420249cc7',
     username: 'user',
     password: '123456',
     gender: '女',
-    role: 'user',
+    role: 'document,settings,users',
     phone: '13838383838',
     email: '1@qq.com',
+    avatar:''
   },
 ]
 export default data

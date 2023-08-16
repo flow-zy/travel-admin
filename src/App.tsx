@@ -9,7 +9,7 @@ const App:FC = () => {
   const config =useSelector((state:RootState)=> state.setting)
   return (
     <div className="app">
-      <ConfigProvider {...config}>
+      <ConfigProvider theme={config.theme} componentSize={config.componentSize}>
       <RouterProvider router={createHashRouter(routes)}></RouterProvider>
       <Loading/>
       </ConfigProvider>

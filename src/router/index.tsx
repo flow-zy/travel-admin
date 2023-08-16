@@ -1,6 +1,5 @@
 import { Navigate, type RouteObject } from 'react-router-dom'
 import { Lazy, AuthRoute } from '@/components/index'
-import page from '@/data/page'
 // 获取views  文件夹下的所有组件
 const modules = import.meta.glob('@/views/**/*.tsx', {
   eager: true,
@@ -24,10 +23,7 @@ Object.entries(modules).map(([key, element]) => {
   if (!['index', 'notfound', 'login'].includes(path)) {
     pathArr.push({
       path,
-      component: element,
-      handle: {
-        title: page[path],
-      },
+      component: element
     })
   }
 })

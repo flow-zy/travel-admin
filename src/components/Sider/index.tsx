@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { type FC, useState} from 'react'
+import { type FC, useState } from 'react'
 import { Layout, Menu, type MenuProps } from 'antd'
 
 import { Logo } from '@/components'
@@ -26,9 +26,9 @@ interface Props {
   data: IMenu[]
   defaultKey: string[]
   click: Function
-  style:any
+  style: any
 }
-const Sider: FC<Props> = ({ collpase, data, defaultKey, click,style }: Props) => {
+const Sider: FC<Props> = ({ collpase, data, defaultKey, click, style }: Props) => {
   const [openKeys, setOpenKeys] = useState<string[]>([])
   const generateMenus = (data: IMenu[]): MenuItem[] => {
     const menuItems: MenuItem[] = []
@@ -51,11 +51,11 @@ const Sider: FC<Props> = ({ collpase, data, defaultKey, click,style }: Props) =>
     <Layout.Sider
       width={collpase ? 60 : 200}
       trigger={null}
-      collapsible 
-      className='bg-slate-200' 
+      collapsible
+      className='bg-slate-200'
       collapsed={collpase}
-      style={{...style,minHeight:'100vh'}}
-      >
+      style={{ ...style, minHeight: '100vh' }}
+    >
       <Logo isCollapse={collpase} />
       <Menu
         defaultSelectedKeys={defaultKey}
@@ -67,7 +67,7 @@ const Sider: FC<Props> = ({ collpase, data, defaultKey, click,style }: Props) =>
         items={menuList ?? []}
         onClick={(e) => { click(e) }}
         onOpenChange={onOpenChange}
-        style={{...style,border:'none'}}
+        style={{ ...style, border: 'none' }}
       />
     </Layout.Sider>
   )

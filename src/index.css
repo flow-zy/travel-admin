@@ -16,11 +16,14 @@ img {
 }
 
 .ant-tabs-nav::before {
-  border-bottom:none !important;
+  border:none !important;
   top: 0  !important;
-  border-top: 1px solid #f0f0f0  !important;
 }
 
 .ant-tabs-top >.ant-tabs-nav {
   margin-bottom:0;
+}
+
+button {
+  box-shadow:none!important;
 }

@@ -1,6 +1,6 @@
 import { useState, type FC } from 'react'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import { Button, Form, Input, Radio, type RadioChangeEvent, message } from 'antd'
+import { Button, Form, Input, message } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import {useDispatch } from 'react-redux'
 import {login} from '@/store/slice/user'
@@ -8,14 +8,6 @@ import { type IUser } from '@/types'
 import { login as loginApi } from '@/api'
 import './index.scss'
 import left from '@/assets/login_left.png'
-const options = [{
-  label: 'admin',
-  value: 'admin',
-}, {
-  label: 'user',
-  value: 'user',
-}]
-
 const Login: FC = () => {
   const [form] = Form.useForm()
   const dispatch = useDispatch()
@@ -23,11 +15,13 @@ const Login: FC = () => {
   const [messageApi, contextHolder] = message.useMessage()
   const [loginForm, setLoginForm] = useState<IUser>({
     username: '',
-    password: '',
-    role: 'admin',
+    password: ''
   })
-  const radioChange = ({ target: { value } }: RadioChangeEvent) => {
-    setLoginForm((form) => ({ ...form, role: value }))
+  const change=(type:string,value:string)=>{
+    setLoginForm((form)=>{
+      form[type]=value
+      return form
+    })
   }
   const onFinish = async(values: IUser) => {
     const { data, code, message } = await loginApi<IUser>({
@@ -87,7 +81,7 @@ const Login: FC = () => {
             >
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="用户名:admin/user" />
+                placeholder="用户名:admin/user" onChange={(e)=>change('username',e.target.value)} />
             </Form.Item>
 
             <Form.Item<IUser>
@@ -96,12 +90,8 @@ const Login: FC = () => {
             >
               <Input.Password
                 prefix={<LockOutlined className="site-form-item-icon" />}
-                placeholder="密码:123456"
+                placeholder="密码:123456" onChange={(e)=>change('password',e.target.value)}
               />
-            </Form.Item>
-            <Form.Item<IUser> name='role'>
-              <Radio.Group options={options} value={'admin'}
-                onChange={radioChange}></Radio.Group>
             </Form.Item>
             <Form.Item >
               <Button type="primary" htmlType="submit">

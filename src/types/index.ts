@@ -5,9 +5,11 @@ export interface IUser {
   password: string
   email?: string
   phone?: string
-  gender?: number | string
+  gender?: string
   role?: string
   token?: string
+  avatar?:string
+  [key: string]: string | undefined
 }
 // 菜单栏类型
 export interface IMenu {
@@ -16,11 +18,4 @@ export interface IMenu {
   children?: IMenu[]
   auth?: string
   path: string
-}
-
-// 页面数据
-export interface IPage {
-  [key: string]: {
-    title: string
-  }
 }

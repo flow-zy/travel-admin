@@ -9,7 +9,7 @@ const Logo: FC<propsType> = (props) => {
 
   return (
     <Link to={{ pathname: '/' }}>
-      <div className="logo-box flex justify-between items-center" style={{height:'64px',lineHeight:1,fontSize:'20px'}}>
+      <div className="logo-box flex justify-between items-center" style={{ height: '64px', lineHeight: 1, fontSize: '20px' }}>
         {!isCollapse && <h2 className="logo-text font-bold text-white ">React-Admin</h2>}
       </div>
     </Link>

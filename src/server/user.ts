@@ -11,7 +11,7 @@ interface Options {
 export const handleLogin = (options:Options) => {
   const {body} = options
   const data = JSON.parse(body)
-  const current = userList.find((user: IUser) => user.username === data.username && user.password === data.password && user.role === data.role)
+  const current = userList.find((user: IUser) => user.username === data.username && user.password === data.password )
   if (current === undefined) {
     return {
       message: '账号或者密码错误',

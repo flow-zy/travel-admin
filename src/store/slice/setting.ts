@@ -1,28 +1,30 @@
-  import { createSlice } from '@reduxjs/toolkit'
-  import type{ThemeConfig} from 'antd'
+import { createSlice } from '@reduxjs/toolkit'
+import type { ThemeConfig } from 'antd'
 import type { PayloadAction } from '@reduxjs/toolkit'
-interface ISetting{
-  theme:ThemeConfig
-  componentSize:string
+export interface ISetting {
+  theme?: ThemeConfig
+  componentSize?: 'small' | 'middle' | 'large' | undefined
+  [key: string]: any
 }
-const initialState:ISetting = {
- theme:{
-  token:{
-    colorPrimaryBg:'#1377ff',
-    colorPrimary:'transparent'
-  }
- },
- componentSize:'middle',
+const initialState: ISetting = {
+  theme: {
+    token: {
+      colorPrimaryBg: '#cfe0f5',
+      colorPrimary: '#03edf9'
+    }
+  },
+  componentSize: 'middle',
 }
 
-export const setting =createSlice({
-  name:'setting',
+export const setting = createSlice({
+  name: 'setting',
   initialState,
-  reducers:{
-    save(state,{payload}:PayloadAction){
-              Object.entries(payload).forEach(([key,value])=>{
-                state[key]=value
-              })
+  reducers: {
+    save(state, action: PayloadAction<ISetting | null>) {
+      const payload = action.payload as ISetting
+      Object.entries(payload).forEach(([key, value]) => {
+        state[key] = value
+      })
     }
   }
 })
