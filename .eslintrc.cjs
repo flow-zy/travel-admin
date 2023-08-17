@@ -49,6 +49,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'off',
     '@typescript-eslint/restrict-template-expressions':0,
     '@typescript-eslint/await-thenable':0,
-    '@typescript-eslint/no-confusing-void-expression':0
+    '@typescript-eslint/no-confusing-void-expression': 0,
+    '@typescript-eslint/promise-function-async':0
   },
 }
