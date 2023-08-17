@@ -36,7 +36,7 @@ const Login: FC = () => {
         content: `${message},稍后将跳转至首页`,
         onClose() {
           dispatch(login(data))
-          navigate('/')
+          navigate('/home')
         },
       })
     } else {
