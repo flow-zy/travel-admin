@@ -66,12 +66,7 @@ const routes: RouteObject[] = [
             path:'',
             element:<Navigate to='home'/>
           },
-          {
-            path: 'home',
-            element:Lazy(async() => await import(/* @vite-ignore */ '@/views/Home'))
-          }
-          // ...output
-        ]
+          ...output]
       },
     ],
   },
@@ -90,5 +85,6 @@ const routes: RouteObject[] = [
     },
   },
 ]
+console.log(routes)
 
 export default routes
