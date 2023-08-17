@@ -46,7 +46,7 @@ const menu: IMenu[] = [
      {
         name: '菜单列表',
         path: '/org/menu',
-        iconClass: 'profile'
+        iconClass: 'profile-hunt'
       },
       {
         name: '用户列表',
