@@ -1,6 +1,4 @@
-import {type FC} from 'react'
-
-const List:FC=()=> {
+function List() {
   return (
     <div>
       List

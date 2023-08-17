@@ -7,64 +7,59 @@ const menu: IMenu[] = [
     path: '/home',
     auth: 'document',
   }, {
-    name: '分类管理',
-    iconClass: 'bookmark',
-    path: '/category',
-    auth: 'category',
+    name: '数据大屏',
+    iconClass: 'area-chart',
+    path: '/chart',
+    auth:'document'
+  },
+  {
+    name: '商品管理',
+    path: '/product',
+    iconClass: 'product-hunt',
+    auth:'products',
     children: [
       {
         name: '分类列表',
-        path: '/category/list',
-        iconClass: 'list-alt'
-      },
-      {
-        name: '添加分类',
-        path: '/category/add',
-        iconClass: 'plus-square-o'
-      },
-    ],
-  },
-  {
-    name: '菜单管理',
-    iconClass: 'reorder',
-    path: '/menu',
-    auth:'profile',
-    children: [
-      {
-        name: '菜单列表',
-        path: '/menu/list',
-        iconClass: 'list-alt'
-      },
-      {
-        name: '添加菜单',
-        path: '/menu/add',
-        iconClass: 'plus-square-o'
-      },
+        iconClass: 'bookmark',
+        path: '/product/category',
+      }, {
+        name: '商品列表',
+        iconClass: 'list',
+        path: '/product/list',
+      }, {
+        name: '订单列表',
+        iconClass: 'first-order',
+        path:'/product/order'
+      }, {
+        name: '支付',
+        iconClass: 'paypal',
+        path:'/product/payment'
+      }
     ]
   },
-   {
+  {
     name: '组织架构',
     iconClass: 'users',
-    path:'/org',
-    auth:'roles',
-    children:[
-       {
+    path: '/org',
+    auth: 'roles',
+    children: [
+     {
+        name: '菜单列表',
+        path: '/org/menu',
+        iconClass: 'profile'
+      },
+      {
         name: '用户列表',
         path: '/org/list',
         iconClass: 'list-alt'
       },
       {
-        name: '添加用户',
-        path: '/org/add',
-        iconClass: 'plus-square-o'
-      },
-      {
-        name:'权限列表',
-        path:'/org/permission',
-        iconClass:'level-up'
+        name: '权限列表',
+        path: '/org/permission',
+        iconClass: 'level-up'
       }
-    ]     
-  },{
+    ]
+  }, {
     name: '个人管理',
     path: '/user',
     iconClass: 'user',

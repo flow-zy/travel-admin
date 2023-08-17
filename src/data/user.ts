@@ -8,7 +8,7 @@ const data:IUser[] = [
     role: `document,users,category,orders,carts,products,settings,roles,permissions,profile,logs,notifications,addresses,payments,gateways`,
     phone: '13838383838',
     email: '1@qq.com',
-    avatar:'',
+    avatar:'https://picsum.photos/id/201/200/200',
     nickname:'admin'
   },
   {
@@ -19,7 +19,7 @@ const data:IUser[] = [
     role: 'document,settings,users',
     phone: '13838383838',
     email: '1@qq.com',
-    avatar:'',
+    avatar:'https://picsum.photos/200/200',
     nickname:'user'
   },
 ]

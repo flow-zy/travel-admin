@@ -26,13 +26,19 @@ export const useSlice = createSlice({
     logout(state){
       const loading =document.querySelector('.loading') as HTMLElement
       loading.style.display='block'
-      state=initialState
+      // let newState=state
+      Object.keys(state).forEach(key=>{
+        if(['username','password'].includes(key)){
+          delete state[key]
+        }else{
+          state[key]=''
+        }
+      })
       setTimeout(()=>{
       removeToken()
       location.reload()
         loading.style.display='none' 
       },3000)
-
     }
   },
 })

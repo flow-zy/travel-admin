@@ -1,6 +1,6 @@
-import { useState, type FC } from 'react'
+import { useState, type FC ,useRef, useEffect} from 'react'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import { Button, Form, Input, message } from 'antd'
+import { Button, Form, Input, message,type InputRef } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import {useDispatch } from 'react-redux'
 import {login} from '@/store/slice/user'
@@ -9,6 +9,7 @@ import { login as loginApi } from '@/api'
 import './index.scss'
 import left from '@/assets/login_left.png'
 const Login: FC = () => {
+  const inputRef=useRef<InputRef>(null)
   const [form] = Form.useForm()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -55,6 +56,9 @@ const Login: FC = () => {
   const reset = () => {
     form.resetFields()
   }
+  useEffect(() => {
+    inputRef.current?.focus({cursor:'start'})
+   },[])
   return (
     <div className='login-page flex items-center justify-center w-full h-full'>
       <div className="login-box  shadow-md flex justify-around rounded-md items-center">
@@ -80,8 +84,11 @@ const Login: FC = () => {
 
             >
               <Input
+                ref={inputRef}
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="用户名:admin/user" onChange={(e)=>change('username',e.target.value)} />
+                placeholder="用户名:admin/user"
+                onChange={(e) => change('username', e.target.value)}
+                allowClear />
             </Form.Item>
 
             <Form.Item<IUser>
@@ -90,11 +97,13 @@ const Login: FC = () => {
             >
               <Input.Password
                 prefix={<LockOutlined className="site-form-item-icon" />}
-                placeholder="密码:123456" onChange={(e)=>change('password',e.target.value)}
+                placeholder="密码:123456"
+                onChange={(e) => change('password', e.target.value)}
+                allowClear
               />
             </Form.Item>
             <Form.Item >
-              <Button type="primary" htmlType="submit" className='pr-2'>
+              <Button type="primary" htmlType="submit" className='mr-6'>
                 登录
               </Button>
               <Button type="default" htmlType="button" onClick={reset}>

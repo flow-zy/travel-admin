@@ -160,6 +160,8 @@ const Header: FC<Props> = ({ collpase, click, style }: Props) => {
         icon: <ExclamationCircleFilled />,
         onOk(e) {
           setOpen(false)
+          const modal= (document.querySelector('.ant-modal-root .css-dev-only-do-not-override-fpg3f5') as HTMLElement)
+          modal && modal.remove()
           logout(e)
         },
         onCancel() {
