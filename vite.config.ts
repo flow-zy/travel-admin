@@ -6,7 +6,7 @@ export default defineConfig(({mode}):UserConfig=>{
   const env=loadEnv(mode,process.cwd(),'')
   return {
   plugins: [react()],
-  base:env.NODE_ENV ==='development'?'./': '/xiaoCaiWang/',
+  base:env.NODE_ENV ==='development'?'./': '/shop-admin/',
   server: {
     port: Number(env.VITE_APP_PORT),
     open: false
