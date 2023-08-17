@@ -1,4 +1,4 @@
-import {  type RouteObject } from 'react-router-dom'
+import { Navigate, type RouteObject } from 'react-router-dom'
 import { Lazy, AuthRoute } from '@/components/index'
 // 获取views  文件夹下的所有组件
 const modules = import.meta.glob('@/views/**/*.tsx', {
@@ -62,7 +62,15 @@ const routes: RouteObject[] = [
           title: '首页',
         },
         children: [
-          ...output
+          {
+            path:'',
+            element:<Navigate to='home'/>
+          },
+          {
+            path: 'home',
+            element:Lazy(async() => await import(/* @vite-ignore */ '@/views/Home'))
+          }
+          // ...output
         ]
       },
     ],
