@@ -21,7 +21,7 @@ const Info: FC = () => {
       </div>
         <div className="email flex items-start justify-between w-full">
         <span>联系方式</span>
-        <span>{userInfo?.email}/ {userInfo?.phone}</span>
+        <span>{userInfo?.email}/ {userInfo?.phone as string}</span>
       </div>
       <div className='avatar flex items-start justify-between w-full'>
         <span>头像</span>
