@@ -23,14 +23,10 @@ export const useSlice = createSlice({
         state[key] = value
       })
     },
-    logout(_state){
+    logout(state){
       const loading =document.querySelector('.loading') as HTMLElement
       loading.style.display='block'
-      Object.keys(state).forEach((key)=>{
-        if(key!=='username' || key!=='password'){
-          delete state[key]
-        }
-      })
+      state=initialState
       setTimeout(()=>{
       removeToken()
       location.reload()
