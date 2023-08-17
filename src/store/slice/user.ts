@@ -15,9 +15,9 @@ export const useSlice = createSlice({
   reducers: {
     login(state, action: PayloadAction<IUser | null>) {
       const data = action.payload as IUser
-      Object.entries(data).forEach(([key, value]:{key:string;value:string}) => {
+      Object.entries(data).forEach(([key, value]) => {
         if (key === 'token') {
-          setToken((value))
+          setToken((value as string))
           delete data[key]
         }
         state[key] = value
@@ -27,7 +27,7 @@ export const useSlice = createSlice({
       const loading =document.querySelector('.loading') as HTMLElement
       loading.style.display='block'
       setTimeout(()=>{
-        state={}
+        state={username:'',password:''}
       removeToken()
       location.reload()
         loading.style.display='none' 

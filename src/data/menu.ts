@@ -24,6 +24,24 @@ const menu: IMenu[] = [
       },
     ],
   },
+  {
+    name: '菜单管理',
+    iconClass: 'reorder',
+    path: '/menu',
+    auth:'profile',
+    children: [
+      {
+        name: '菜单列表',
+        path: '/menu/list',
+        iconClass: 'list-alt'
+      },
+      {
+        name: '添加菜单',
+        path: '/menu/add',
+        iconClass: 'plus-square-o'
+      },
+    ]
+  },
    {
     name: '组织架构',
     iconClass: 'users',

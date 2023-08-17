@@ -8,7 +8,8 @@ const data:IUser[] = [
     role: `document,users,category,orders,carts,products,settings,roles,permissions,profile,logs,notifications,addresses,payments,gateways`,
     phone: '13838383838',
     email: '1@qq.com',
-    avatar:''
+    avatar:'',
+    nickname:'admin'
   },
   {
     id: 'ad257103-864c-4331-a1c1-092420249cc7',
@@ -18,7 +19,8 @@ const data:IUser[] = [
     role: 'document,settings,users',
     phone: '13838383838',
     email: '1@qq.com',
-    avatar:''
+    avatar:'',
+    nickname:'user'
   },
 ]
 export default data

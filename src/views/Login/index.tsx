@@ -94,7 +94,7 @@ const Login: FC = () => {
               />
             </Form.Item>
             <Form.Item >
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" className='pr-2'>
                 登录
               </Button>
               <Button type="default" htmlType="button" onClick={reset}>

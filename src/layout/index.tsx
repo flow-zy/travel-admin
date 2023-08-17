@@ -23,13 +23,7 @@ const LayOut: FC = () => {
   const changeRoute: MenuProps['onClick'] = ({key}): void => {
     navigate(key)
   }
-  useEffect(()=>{
-    const arr=role.split(',')
-    const newMenu=data.filter(menu=>arr.includes(menu.auth))
-    console.log(newMenu)
-    setMenuData(newMenu)
-  },[])
-  useEffect(() => {
+  const changeTag=(menuData:IMenu[]):void=>{
     setDefault([pathname]) 
     const arr = pathname.split('/').splice(1) 
     let i=0
@@ -52,9 +46,18 @@ const LayOut: FC = () => {
         return tags && [...tags]
       })
     }
+  }
+  useEffect(() => {
+    changeTag(menuData)
     setLoading(false)
   }, [pathname])
 
+  useEffect(()=>{
+    const arr=role && role.split(',')
+    const newMenu=data.filter(menu=>arr && arr.includes((menu.auth as string)))
+    setMenuData(newMenu)
+    changeTag(newMenu)
+  },[])
   return (
     <Layout className='layout'>
       {/* 菜单栏 */}
@@ -73,13 +76,13 @@ const LayOut: FC = () => {
           backgroundColor: token.colorPrimaryBg
         }} />
         {/* 内容区 */}
-        <Content>
+        <Content className='bg-white'>
           {/* 动态tag */}
           <TagView tags={tags ?? []} />
           <Spin spinning={loading} tip="Loading...">
             <Card
-              style={{ padding: '15px', borderTop: 'none', backgroundColor: 'transparent' }}
-              bodyStyle={{ backgroundColor: '#fff' }}>
+              style={{ padding: '15px', border: 'none', backgroundColor: 'transparent' }}
+              bodyStyle={{ backgroundColor: '#fff' ,border:'none'}}>
               <Outlet />
             </Card>
           </Spin>
