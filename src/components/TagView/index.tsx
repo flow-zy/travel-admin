@@ -39,7 +39,7 @@ const TagView: FC<Props> = ({ tags }: Props) => {
       }
     })
     const newPanes = items && items.filter((item) => item.key !== targetKey)
-    if (newPanes.length && newActiveKey === targetKey) {
+    if (newPanes && newPanes.length && newActiveKey === targetKey) {
       if (lastIndex >= 0) {
         newActiveKey = newPanes[lastIndex].key
         navigate(newActiveKey)
