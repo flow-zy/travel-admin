@@ -34,7 +34,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'npm'
+          cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
       - name: Build
@@ -49,3 +49,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+        env:
+          # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
