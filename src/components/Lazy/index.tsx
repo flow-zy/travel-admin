@@ -1,21 +1,21 @@
-import { lazy, Suspense, type  ComponentType, type ReactNode, type FC, Fragment, useEffect} from 'react'
+import { lazy, Suspense, type ComponentType, type ReactNode, type FC, Fragment, useEffect } from 'react'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
-export namespace Type{
+export namespace Type {
   export interface defRC {
-    default:ComponentType<any>
+    default: ComponentType<any>
   }
 }
-const Progress:FC = () => {
+const Progress: FC = () => {
   Nprogress.start()
-  useEffect(() => () => {Nprogress.done()}, [])
-  return <Fragment/>
+  useEffect(() => () => { Nprogress.done() }, [])
+  return <Fragment />
 }
-function Lazy(callback: () => Promise<Type.defRC>):ReactNode {
+function Lazy(callback: () => Promise<Type.defRC>): ReactNode {
   const LazyRC = lazy(callback)
   return (
     <Suspense fallback={<Progress />}>
-      <LazyRC/>
+      <LazyRC />
     </Suspense>
   )
 }

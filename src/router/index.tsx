@@ -30,17 +30,17 @@ Object.entries(modules).map(([key, element]) => {
 pathArr.forEach((item) => {
   const paths = item.path && item.path.split('/')
   let currentLevel = output
-  paths && paths.forEach((path, index) => {
+  paths && paths.forEach((path) => {
     const existingPath = currentLevel.find((level) => level.path === path)
 
     if (existingPath != null) {
       currentLevel = existingPath.children as RouteObject[]
     } else {
       const newLevel: RouteObject = {
-        path,
+        path: item.path,
         children: [],
+        element: Lazy(() => import(item.component))
       }
-      index === paths.length - 1 ? newLevel.element = Lazy(async () => await import(/* @vite-ignore */ item.component)) : ''
       currentLevel.push(newLevel)
       currentLevel = newLevel.children as RouteObject[]
     }
@@ -50,7 +50,7 @@ pathArr.forEach((item) => {
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <AuthRoute> {Lazy(async () => await import(/* @vite-ignore */ '@/layout'))}</AuthRoute>,
+    element: <AuthRoute> {Lazy(() => import('@/layout'))}</AuthRoute>,
     handle: {
       title: '首页',
     },
@@ -64,19 +64,18 @@ const routes: RouteObject[] = [
   },
   {
     path: '/login',
-    element: Lazy(async () => await import(/* @vite-ignore */ '@/views/Login')),
+    element: Lazy(() => import('@/views/Login')),
     handle: {
       title: '登录',
     },
   },
   {
     path: '/:catchAll(.*)',
-    element: Lazy(async () => await import(/* @vite-ignore */ '@/views/NotFound')),
+    element: Lazy(() => import('@/views/NotFound')),
     handle: {
       title: '404',
     },
   },
 ]
-console.log("🚀 ~ file: index.tsx:82 ~ routes:", routes)
 
 export default routes
