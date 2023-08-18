@@ -25,7 +25,14 @@ export default defineConfig(({ mode }): UserConfig => {
 			// 启用/禁用 gzip 压缩大小报告 - 压缩大型输出文件可能会很慢，因此禁用该功能可能会提高大型项目的构建性能
 			reportCompressedSize: false,
 			// chunk 大小警告的限制（以 kbs 为单位）
-			chunkSizeWarningLimit: 2000
+			chunkSizeWarningLimit: 2000,
+			rollupOptions: {
+				output: {
+					chunkFileNames: 'assets/js/[name]-[hash].js',
+					entryFileNames: 'assets/js/[name]-[hash].js',
+					assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
+				}
+			}
 		}
 	}
 })
