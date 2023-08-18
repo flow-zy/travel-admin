@@ -77,5 +77,6 @@ const routes: RouteObject[] = [
     },
   },
 ]
+console.log("🚀 ~ file: index.tsx:82 ~ routes:", routes)
 
 export default routes
