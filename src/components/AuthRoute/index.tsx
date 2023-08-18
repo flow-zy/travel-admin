@@ -5,7 +5,7 @@ import { v4 as uuidv4} from 'uuid'
 interface Props {
   children:ReactNode
 }
-const AuthRoute:FC<Props> = ({children}:Props) => {
+const AuthRoute:FC<Props> = ({children}:Props):ReactNode => {
   const matches = useMatches()
   const page = useMemo(() => {
     if (getToken().length > 0) {return children}
