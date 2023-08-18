@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Navigate, type RouteObject } from 'react-router-dom'
 import { Lazy, AuthRoute } from '@/components/index'
 // 获取views  文件夹下的所有组件
@@ -7,7 +6,7 @@ const modules = import.meta.glob('@/views/**/*.tsx', {
   as: 'url',
 })
 interface IHandle {
-  title:string | any
+  title: string | any
 }
 interface PathObject {
   path: string
@@ -41,7 +40,7 @@ pathArr.forEach((item) => {
         path,
         children: [],
       }
-      index === paths.length - 1 ? newLevel.element = Lazy(async() => await import(/* @vite-ignore */ item.component)) : ''
+      index === paths.length - 1 ? newLevel.element = Lazy(async () => await import(/* @vite-ignore */ item.component)) : ''
       currentLevel.push(newLevel)
       currentLevel = newLevel.children as RouteObject[]
     }
@@ -51,41 +50,32 @@ pathArr.forEach((item) => {
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <AuthRoute></AuthRoute>,
+    element: <AuthRoute> {Lazy(async () => await import(/* @vite-ignore */ '@/layout'))}</AuthRoute>,
     handle: {
       title: '首页',
     },
     children: [
       {
-        path: '/',
-        element: Lazy(() => import(/* @vite-ignore */ '@/layout')),
-        handle: {
-          title: '首页',
-        },
-        children: [
-          {
-            path:'',
-            element:<Navigate to='home'/>
-          },
-          ...output]
+        path: '',
+        element: <Navigate to='home' />
       },
-    ],
+      ...output
+    ]
   },
   {
     path: '/login',
-    element: Lazy(() => import(/* @vite-ignore */ '@/views/Login')),
+    element: Lazy(async () => await import(/* @vite-ignore */ '@/views/Login')),
     handle: {
       title: '登录',
     },
   },
   {
     path: '/:catchAll(.*)',
-    element: Lazy(() =>  import(/* @vite-ignore */ '@/views/NotFound')),
+    element: Lazy(async () => await import(/* @vite-ignore */ '@/views/NotFound')),
     handle: {
       title: '404',
     },
   },
 ]
-console.log(routes)
 
 export default routes

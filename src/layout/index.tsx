@@ -57,6 +57,7 @@ const LayOut: FC = () => {
     const newMenu=data.filter(menu=>arr && arr.includes((menu.auth as string)))
     setMenuData(newMenu)
     changeTag(newMenu)
+    console.log("🚀 ~ file: index.tsx:60 ~ useEffect ~ newMenu:", newMenu)
   },[])
   return (
     <Layout className='layout'>
@@ -82,7 +83,8 @@ const LayOut: FC = () => {
           <Spin spinning={loading} tip="Loading...">
             <Card
               style={{ padding: '15px', border: 'none', backgroundColor: 'transparent' }}
-              bodyStyle={{ backgroundColor: '#fff' ,border:'none'}}>
+              bodyStyle={{ backgroundColor: '#fff', border: 'none' }}>
+              ads
               <Outlet />
             </Card>
           </Spin>

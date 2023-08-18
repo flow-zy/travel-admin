@@ -1,14 +1,16 @@
-import { useMemo, useEffect, type FC } from 'react'
-import { Navigate, useMatches, useOutlet } from 'react-router-dom'
+import { useMemo, useEffect, type FC, type ReactNode } from 'react'
+import { Navigate, useMatches } from 'react-router-dom'
 import { getToken } from '@/utils/token'
 import { v4 as uuidv4} from 'uuid'
-const AuthRoute:FC = () => {
-  const outLet = useOutlet()
+interface Props {
+  children:ReactNode
+}
+const AuthRoute:FC<Props> = ({children}:Props) => {
   const matches = useMatches()
   const page = useMemo(() => {
-    if (getToken().length > 0) {return outLet}
+    if (getToken().length > 0) {return children}
     return <Navigate to={`/login?redirect=${uuidv4()}`} replace/>
-  }, [getToken(), outLet, matches])
+  }, [getToken(), matches])
   useEffect(() => {
     const title = (matches[1].handle as any)?.title
     const isHasTitle = typeof title === 'string'
