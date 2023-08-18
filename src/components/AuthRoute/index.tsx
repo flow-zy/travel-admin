@@ -1,4 +1,4 @@
-import { useMemo, useEffect, type FC, type ReactNode } from 'react'
+import { useMemo, useEffect, type FC, type ReactNode, Fragment } from 'react'
 import { Navigate, useMatches } from 'react-router-dom'
 import { getToken } from '@/utils/token'
 import { v4 as uuidv4} from 'uuid'
@@ -18,6 +18,6 @@ const AuthRoute:FC<Props> = ({children}:Props) => {
       document.title = title
     }
   }, [matches])
-  return page
+  return <Fragment>{ page}</Fragment>
 }
 export default AuthRoute
