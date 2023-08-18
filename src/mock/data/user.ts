@@ -1,4 +1,5 @@
 import type {IUser} from '@/types'
+
 const data:IUser[] = [
   {
     id: 'bc1d0d62-4c49-4a56-871d-c5c6aeed2a30',

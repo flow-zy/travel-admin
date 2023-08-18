@@ -3,14 +3,17 @@ import {
   FullscreenOutlined, BellOutlined, SyncOutlined, SettingOutlined,
   MenuFoldOutlined, MenuUnfoldOutlined, ExclamationCircleFilled
 } from '@ant-design/icons'
-import avatar from '@/assets/avatar.png'
 import { Layout, Dropdown, Space, Avatar, Tooltip, Drawer, Button, ColorPicker, Modal, message } from 'antd'
 import type { MenuProps, TooltipProps, ColorPickerProps, ModalProps as ModelProps } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import avatar from '@/assets/avatar.png'
 import { type RootState } from '@/store'
 import { save, type ISetting } from '@/store/slice/setting'
 import { logout as log } from '@/store/slice/user'
-import { useNavigate } from 'react-router-dom'
+
+
 const { confirm } = Modal
 interface DrawerProps {
   open: boolean
@@ -119,7 +122,7 @@ const Header: FC<Props> = ({ collpase, click, style }: Props) => {
   const navigate = useNavigate()
   const [messageApi, contextHolder] = message.useMessage()
   const dispatch = useDispatch()
-  const [open,setOpen]=useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false)
   const tools: TooltipProps[] = [{
     placement: 'bottom',
     title: '全屏',
@@ -160,7 +163,7 @@ const Header: FC<Props> = ({ collpase, click, style }: Props) => {
         icon: <ExclamationCircleFilled />,
         onOk(e) {
           setOpen(false)
-          const modal= (document.querySelector('.ant-modal-root .css-dev-only-do-not-override-fpg3f5') as HTMLElement)
+          const modal = (document.querySelector('.ant-modal-root .css-dev-only-do-not-override-fpg3f5') as HTMLElement)
           modal && modal.remove()
           logout(e)
         },

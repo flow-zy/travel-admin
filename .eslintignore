@@ -7,6 +7,5 @@ dist
 .DS_Store
 *.local
 .eslintignore
-*.cjs
 vite.config.ts
 *.d.ts

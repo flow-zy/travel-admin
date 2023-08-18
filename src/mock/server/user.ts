@@ -1,9 +1,12 @@
-import list from '@/data/user'
 import {v4 as uuid } from 'uuid'
-import type { IUser } from '@/types'
 import { Random } from 'mockjs'
-import permissionArr from '@/data/permission'
+
+import list from '../data/user'
+import permissionArr from '../data/permission'
+
+import type { IUser } from '@/types'
 import {pageData} from '@/utils'
+
 interface Options {
   body:string
   type:string

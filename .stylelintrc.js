@@ -1,5 +1,6 @@
 module.exports = {
   "extends": ["stylelint-config-standard", "stylelint-config-prettier", "stylelint-config-standard-scss"],
+  "customSyntax":"postcss-lit",
   "rules": {
     "property-no-unknown": true,
     "comment-no-empty": [
@@ -24,6 +25,5 @@ module.exports = {
     "selector-class-pattern": null, // 强制选择器类名的格式
     "value-no-vendor-prefix": null, // 关闭 vendor-prefix(为了解决多行省略 -webkit-box)
     "at-rule-no-unknown": null,
-
   }
 }

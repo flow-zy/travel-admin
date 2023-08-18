@@ -1,7 +1,9 @@
 import { type FC, useEffect, useState } from "react"
+import { message } from 'antd'
+
 import { userAll } from '@/api'
 import type { IUser, IData } from '@/types'
-import { message } from 'antd'
+
 interface Query {
   pagesize: number | string
   pagenum: number | string

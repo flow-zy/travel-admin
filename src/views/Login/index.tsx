@@ -1,15 +1,17 @@
-import { useState, type FC ,useRef, useEffect} from 'react'
+import { useState, type FC, useRef, useEffect } from 'react'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import { Button, Form, Input, message,type InputRef } from 'antd'
+import { Button, Form, Input, message, type InputRef } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import {useDispatch } from 'react-redux'
-import {login} from '@/store/slice/user'
+import { useDispatch } from 'react-redux'
+
+import { login } from '@/store/slice/user'
 import { type IUser } from '@/types'
 import { login as loginApi } from '@/api'
 import './index.scss'
 import left from '@/assets/login_left.png'
+
 const Login: FC = () => {
-  const inputRef=useRef<InputRef>(null)
+  const inputRef = useRef<InputRef>(null)
   const [form] = Form.useForm()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -18,13 +20,13 @@ const Login: FC = () => {
     username: '',
     password: ''
   })
-  const change=(type:string,value:string)=>{
-    setLoginForm((form)=>{
-      form[type]=value
+  const change = (type: string, value: string) => {
+    setLoginForm((form) => {
+      form[type] = value
       return form
     })
   }
-  const onFinish = async(values: IUser) => {
+  const onFinish = async (values: IUser) => {
     const { data, code, message } = await loginApi<IUser>({
       url: '/login',
       method: 'get',
@@ -57,8 +59,8 @@ const Login: FC = () => {
     form.resetFields()
   }
   useEffect(() => {
-    inputRef.current?.focus({cursor:'start'})
-   },[])
+    inputRef.current?.focus({ cursor: 'start' })
+  }, [])
   return (
     <div className='login-page flex items-center justify-center w-full h-full'>
       <div className="login-box  shadow-md flex justify-around rounded-md items-center">

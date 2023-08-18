@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     'standard-with-typescript',
     'plugin:react/recommended',
+    'plugin:@shopify/esnext',
     'eslint-config-prettier',
     'plugin:prettier/recommended',
     'prettier'
@@ -25,9 +26,16 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project:['./tsconfig.json']
+    project:'./tsconfig.json'
   },
-  plugins: ['react'],
+  plugins: ['react', '@typescript-eslint'],
+  settings: {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   rules: {
     'prettier/prettier':0,
     'react/react-in-jsx-scope':0,
@@ -50,6 +58,19 @@ module.exports = {
     '@typescript-eslint/restrict-template-expressions':0,
     '@typescript-eslint/await-thenable':0,
     '@typescript-eslint/no-confusing-void-expression': 0,
-    '@typescript-eslint/promise-function-async':0
+    '@typescript-eslint/promise-function-async': 0,
+    'import/no-unresolved': 0,
+    'no-console': 0,
+    'no-shadow': 0,
+    'id-length': 0,
+    '@shopify/binary-assignment-parens': 0,
+    '@shopify/prefer-early-return':0,
+    '@babel/no-unused-expressions': 0,
+    'no-negated-condition': 0,
+    'no-empty-function': 0,
+    'line-comment-position': 0,
+    'no-return-await': 0,
+    'consistent-return': 0,
+    'no-undef':0
   },
 }

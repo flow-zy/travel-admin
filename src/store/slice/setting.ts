@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { ThemeConfig } from 'antd'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
 export interface ISetting {
   theme?: ThemeConfig
   componentSize?: 'small' | 'middle' | 'large' | undefined

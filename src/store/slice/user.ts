@@ -1,7 +1,9 @@
-import { type IUser } from '@/types'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
+import { type IUser } from '@/types'
 import {setToken,removeToken} from '@/utils/token'
+
 interface UserState extends IUser {
 }
 const initialState: UserState = {
@@ -37,7 +39,7 @@ export const useSlice = createSlice({
       setTimeout(()=>{
       removeToken()
       location.reload()
-        loading.style.display='none' 
+        loading.style.display='none'
       },3000)
     }
   },

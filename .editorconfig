@@ -13,6 +13,6 @@ end_of_line = crlf
 #  设置编码，值为latin1、utf-8、utf-8-bom、utf-16be和utf-16le，不建议使用utf-8-bom
 charset = utf-8
 # 设为 true 表示会去除行尾的空白字符
-trim_trailing_whitespace = false
+trim_trailing_whitespace = true
 # 设为 true 表示使文件以一个空白行结尾
 insert_final_newline = false

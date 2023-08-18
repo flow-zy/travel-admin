@@ -1,5 +1,6 @@
 import { type FC } from 'react'
 import { Link } from 'react-router-dom'
+
 interface propsType {
   isCollapse: boolean;
 }

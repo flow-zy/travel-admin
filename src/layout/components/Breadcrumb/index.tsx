@@ -1,6 +1,7 @@
 import { type FC } from 'react'
 import {Breadcrumb as Bread} from 'antd'
 import type {BreadcrumbProps} from 'antd'
+
 interface Props {
   bread:BreadcrumbProps['items']
 }

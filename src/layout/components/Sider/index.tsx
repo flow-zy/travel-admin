@@ -2,8 +2,10 @@
 import { type FC, useState } from 'react'
 import { Layout, Menu, type MenuProps } from 'antd'
 
-import { Logo } from '@/components'
+import Logo from '../Logo'
+
 import { type IMenu } from '@/types'
+
 export type MenuItem = Required<MenuProps>['items'][number];
 // menu item
 const getItem = (

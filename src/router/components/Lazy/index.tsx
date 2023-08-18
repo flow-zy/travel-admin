@@ -1,6 +1,7 @@
 import { lazy, Suspense, type ComponentType, type ReactNode, type FC, Fragment, useEffect } from 'react'
-import Nprogress from 'nprogress'
-import 'nprogress/nprogress.css'
+
+import Nprogress from '@/config/nprogress'
+
 export namespace Type {
   export interface defRC {
     default: ComponentType<any>

@@ -1,7 +1,9 @@
 import { type FC, useState, useEffect } from 'react'
 import { Tabs, type TabsProps } from 'antd'
 import { useLocation, useNavigate } from 'react-router-dom'
+
 import { type MenuItem } from '@/layout'
+
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string
 interface Props {
   tags: MenuItem[]
@@ -20,7 +22,7 @@ const TagView: FC<Props> = ({ tags }: Props) => {
           {tag && tag.label}
         </span>
       ),
-      closable: tag?.key!=='/home'
+      closable: tag?.key !== '/home'
     }))
     setItems(newItems)
   }, [tags])
@@ -30,10 +32,10 @@ const TagView: FC<Props> = ({ tags }: Props) => {
   const changeRoute = (activeKey: string) => {
     navigate(activeKey)
   }
-  const remove=(targetKey:TargetKey)=>{
-   let newActiveKey = activeKey
+  const remove = (targetKey: TargetKey) => {
+    let newActiveKey = activeKey
     let lastIndex = -1
-   items && items.forEach((item, i) => {
+    items && items.forEach((item, i) => {
       if (item.key === targetKey) {
         lastIndex = i - 1
       }
@@ -50,10 +52,10 @@ const TagView: FC<Props> = ({ tags }: Props) => {
     }
     setItems(newPanes)
   }
-  const onEdit=(  targetKey: React.MouseEvent | React.KeyboardEvent | string)=>{
-      remove(targetKey)
+  const onEdit = (targetKey: React.MouseEvent | React.KeyboardEvent | string) => {
+    remove(targetKey)
   }
-  return (<Tabs 
+  return (<Tabs
     className='p-2 bg-white'
     defaultActiveKey={'/home'}
     items={items}

@@ -1,5 +1,6 @@
 import { Navigate, type RouteObject } from 'react-router-dom'
-import { Lazy, AuthRoute } from '@/components/index'
+
+import { Lazy, AuthRoute } from './components/index'
 // 获取views  文件夹下的所有组件
 const modules = import.meta.glob('@/views/**/*.tsx', {
   eager: true,
@@ -39,7 +40,7 @@ pathArr.forEach((item) => {
       const newLevel: RouteObject = {
         path: item.path,
         children: [],
-        element: Lazy(() => import(item.component))
+        element: Lazy(() => import( /* @vite-ignore */ item.component))
       }
       currentLevel.push(newLevel)
       currentLevel = newLevel.children as RouteObject[]
@@ -50,7 +51,7 @@ pathArr.forEach((item) => {
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <AuthRoute> {Lazy(() => import('@/layout'))}</AuthRoute>,
+    element: <AuthRoute> {Lazy(() => /* @vite-ignore */ import('@/layout'))}</AuthRoute>,
     handle: {
       title: '首页',
     },
@@ -64,14 +65,14 @@ const routes: RouteObject[] = [
   },
   {
     path: '/login',
-    element: Lazy(() => import('@/views/Login')),
+    element: Lazy(() => /* @vite-ignore */ import('@/views/Login')),
     handle: {
       title: '登录',
     },
   },
   {
     path: '/:catchAll(.*)',
-    element: Lazy(() => import('@/views/NotFound')),
+    element: Lazy(() => /* @vite-ignore */ import('@/views/NotFound')),
     handle: {
       title: '404',
     },

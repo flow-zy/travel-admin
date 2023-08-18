@@ -1,9 +1,11 @@
 import { configureStore,combineReducers } from '@reduxjs/toolkit'
 import {persistReducer,persistStore} from 'redux-persist'
-import userReducer from './slice/user'
 import storage from 'redux-persist/es/storage'
-import settingReducer from './slice/setting'
 import thunk from 'redux-thunk'
+
+import userReducer from './slice/user'
+import settingReducer from './slice/setting'
+
 // persist配置
 const config={
   key:'root',
@@ -15,7 +17,7 @@ const reducer = combineReducers({
     user: userReducer,
     setting:settingReducer
 })
-// 
+//
 const reducers=persistReducer(config,reducer)
 export const store = configureStore({
   reducer:reducers,

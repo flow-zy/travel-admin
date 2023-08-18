@@ -1,12 +1,15 @@
 
 import { type FC, useState, useEffect } from 'react'
 import { Spin, Card, Layout, type MenuProps, theme } from 'antd'
-import { Sider, TagView, Header } from '@/components'
 import { useSelector } from 'react-redux'
-import { type RootState } from '@/store'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
-import data from '@/data/menu'
+
+import { Sider, TagView, Header } from './components'
+
+import { type RootState } from '@/store'
+import data from '@/mock/data/menu'
 import { type IMenu } from '@/types'
+
 const { Content } = Layout
 const { useToken } = theme
 export type MenuItem = Required<MenuProps>['items'][number]

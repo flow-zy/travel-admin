@@ -1,5 +1,6 @@
 import {type FC, useState} from 'react'
 import './index.scss'
+
 const Loading:FC = () => {
   const [text] = useState<string>('Loading...')
   return (
