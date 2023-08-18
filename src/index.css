@@ -4,26 +4,26 @@
 @tailwind utilities;
 
 .app {
-  height:100vh;
+	height: 100vh;
 }
 
 img {
-  object-fit:contain;
+	object-fit: contain;
 }
 
 .ant-btn-primary {
-  background-color: #1677ff !important;
+	background-color: #1677ff !important;
 }
 
 .ant-tabs-nav::before {
-  border:none !important;
-  top: 0  !important;
+	border: none !important;
+	top: 0 !important;
 }
 
-.ant-tabs-top >.ant-tabs-nav {
-  margin-bottom:0;
+.ant-tabs-top > .ant-tabs-nav {
+	margin-bottom: 0;
 }
 
 button {
-  box-shadow:none!important;
+	box-shadow: none !important;
 }

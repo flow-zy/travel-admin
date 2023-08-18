@@ -5,21 +5,23 @@ import { v4 as uuidv4 } from 'uuid'
 import { getToken } from '@/utils/token'
 
 interface Props {
-  children: ReactNode
+	children: ReactNode
 }
 const AuthRoute: FC<Props> = ({ children }: Props) => {
-  const matches = useMatches()
-  const page = useMemo(() => {
-    if (getToken().length > 0) { return children }
-    return <Navigate to={`/login?redirect=${uuidv4()}`} replace />
-  }, [getToken(), matches])
-  useEffect(() => {
-    const title = (matches[1].handle as any)?.title
-    const isHasTitle = typeof title === 'string'
-    if (isHasTitle) {
-      document.title = title
-    }
-  }, [matches])
-  return <Fragment>{page}</Fragment>
+	const matches = useMatches()
+	const page = useMemo(() => {
+		if (getToken().length > 0) {
+			return children
+		}
+		return <Navigate to={`/login?redirect=${uuidv4()}`} replace />
+	}, [getToken(), matches])
+	useEffect(() => {
+		const title = (matches[1].handle as any)?.title
+		const isHasTitle = typeof title === 'string'
+		if (isHasTitle) {
+			document.title = title
+		}
+	}, [matches])
+	return <Fragment>{page}</Fragment>
 }
 export default AuthRoute
