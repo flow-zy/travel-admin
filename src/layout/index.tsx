@@ -76,19 +76,19 @@ const LayOut: FC = () => {
           backgroundColor: token.colorPrimaryBg
         }} />
         {/* 内容区 */}
-        <Content className='bg-white'>
+        <Content >
           {/* 动态tag */}
           <TagView tags={tags ?? []} />
           <Spin spinning={loading} tip="Loading...">
             <Card
-              style={{ padding: '15px', border: 'none', backgroundColor: 'transparent' }}
-              bodyStyle={{ backgroundColor: '#fff', border: 'none' }}>
+              style={{ padding: '15px', border: 'none', backgroundColor: 'transparent', height: 'calc(100vh - 52px - 64px)' }}
+              bodyStyle={{ backgroundColor: '#fff', border: 'none', height: '100%' }}>
               <Outlet />
             </Card>
           </Spin>
         </Content>
       </Layout>
-    </Layout>
+    </Layout >
   )
 }
 export default LayOut
