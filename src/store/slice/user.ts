@@ -25,7 +25,7 @@ export const useSlice = createSlice({
 			})
 		},
 		logout(state) {
-			const loading = document.querySelector('.loading') as HTMLElement
+			const loading = document.querySelector('.loading')
 			loading.style.display = 'block'
 			// let newState=state
 			Object.keys(state).forEach(key => {
