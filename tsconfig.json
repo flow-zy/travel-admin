@@ -24,6 +24,11 @@
 			"@/*": ["src/*"]
 		}
 	},
-	"include": ["src/**/*.ts", "src/**/*.tsx", "src/*.d.ts"],
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"src/*.d.ts",
+		"./commitlint.config.js"
+	],
 	"references": [{ "path": "./tsconfig.node.json" }]
 }
