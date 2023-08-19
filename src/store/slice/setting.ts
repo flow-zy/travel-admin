@@ -22,7 +22,7 @@ export const setting = createSlice({
 	initialState,
 	reducers: {
 		save(state, action: PayloadAction<ISetting | null>) {
-			const payload = action.payload as ISetting
+			const payload = action.payload 
 			Object.entries(payload).forEach(([key, value]) => {
 				state[key] = value
 			})

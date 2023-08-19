@@ -4,7 +4,9 @@ import axios, {
 	type AxiosResponse,
 	type AxiosInstance
 } from 'axios'
+
 import NProgress from '@/config/nprogress'
+
 export interface ResponseData<T> {
 	message: string
 	code: number

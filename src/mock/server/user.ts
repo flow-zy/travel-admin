@@ -28,7 +28,7 @@ for (let i = 0; i < 10; i++) {
 		updateAt: new Date(Random.datetime()),
 		role: `document,users,${Random.pick(
 			permissionArr.filter(
-				i => !['document', 'users'].includes(i.name as string)
+				i => !['document', 'users'].includes(i.name )
 			)
 		)}`,
 		avatar: `https://picsum.photos/id/${
