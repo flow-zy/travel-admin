@@ -266,7 +266,6 @@ const Header: FC<Props> = ({ collpase, click, style }: Props) => {
 								onClick={() => click()}
 							/>
 						)}
-						{/* 面包屑 */}
 					</div>
 					<div className="header-right flex justify-between items-center w-1/5">
 						{tools.map((tool, index) => (

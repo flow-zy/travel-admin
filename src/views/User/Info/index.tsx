@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Avatar, Button } from 'antd'
 
 import { type RootState } from '@/store'
+import { Image } from '@/components'
 
 const Info: FC = () => {
 	const userInfo = useSelector((state: RootState) => state.user)
@@ -24,17 +25,23 @@ const Info: FC = () => {
 			<div className="email flex items-start justify-between w-full">
 				<span>联系方式</span>
 				<span>
-					{userInfo?.email}/ {userInfo?.phone as string}
+					{userInfo?.email}/{' '}
+					{(userInfo?.phone as string).replace(
+						/(\d{3})\d{4}(\d{4})/,
+						'$1****$2'
+					)}
 				</span>
 			</div>
 			<div className="avatar flex items-start justify-between w-full">
 				<span>头像</span>
-				<Avatar
-					shape="square"
-					size="large"
-					src={userInfo?.avatar}
-					alt={userInfo?.avatar ?? '头像'}
-				/>
+				<Image>
+					<Avatar
+						shape="square"
+						size="large"
+						src={userInfo?.avatar}
+						alt={userInfo?.avatar ?? '头像'}
+					/>
+				</Image>
 			</div>
 			<Button type="primary">修改</Button>
 		</div>

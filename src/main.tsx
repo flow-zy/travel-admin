@@ -4,7 +4,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './App'
 import { persistor, store } from './store'
-import './index.css'
+import './styles/index.css'
 import 'reset.css'
 import '@/mock'
 import 'font-awesome/css/font-awesome.min.css'

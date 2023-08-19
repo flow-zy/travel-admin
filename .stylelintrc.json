@@ -1,0 +1,32 @@
+{
+	"extends": [
+		"stylelint-config-standard",
+		"stylelint-config-prettier",
+		"stylelint-config-standard-scss"
+	],
+	"customSyntax": "postcss-lit",
+	"rules": {
+		"property-no-unknown": true,
+		"comment-no-empty": [
+			true,
+			{
+				"message": "禁止空注释"
+			}
+		],
+		"indentation": null,
+		"keyframes-name-pattern": null,
+		"no-descending-specificity": null,
+		"function-url-quotes": "always",
+		"string-quotes": "single",
+		"unit-case": null,
+		"color-hex-case": "lower",
+		"color-hex-length": "short",
+		"font-family-no-missing-generic-family-keyword": null,
+		"block-opening-brace-space-before": "always",
+		"no-empty-source": null,
+		"declaration-block-trailing-semicolon": null,
+		"selector-class-pattern": null,
+		"value-no-vendor-prefix": null,
+		"at-rule-no-unknown": null
+	}
+}

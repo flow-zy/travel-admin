@@ -27,3 +27,11 @@ img {
 button {
 	box-shadow: none !important;
 }
+
+.ant-tabs-tab button {
+	display: none;
+}
+
+.ant-tabs-tab:hover button {
+	display: block;
+}
