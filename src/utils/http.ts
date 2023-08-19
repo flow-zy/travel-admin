@@ -4,7 +4,7 @@ import axios, {
 	type AxiosResponse,
 	type AxiosInstance
 } from 'axios'
-
+import NProgress from '@/config/nprogress'
 export interface ResponseData<T> {
 	message: string
 	code: number
@@ -27,20 +27,30 @@ const fetchData = async <T>(
 		requestInterceptor = instance.interceptors.request.use(
 			requestConfig =>
 				// 可以在发送请求前进行一些操作，如添加认证信息等
-				requestConfig,
-			async (error: AxiosError) =>
+				{
+					NProgress.start()
+					return requestConfig
+				},
+			async (error: AxiosError) => {
+				NProgress.done()
 				// 请求出错时的处理逻辑
-				await Promise.reject(error)
+				return await Promise.reject(error)
+			}
 		)
 
 		// 响应拦截器
 		responseInterceptor = instance.interceptors.response.use(
 			(response: AxiosResponse<ResponseData<T>>) =>
 				// 可以在收到响应后进行一些操作，如处理错误码，转换返回数据等
-				response,
-			async (error: AxiosError) =>
+				{
+					NProgress.done()
+					return response
+				},
+			async (error: AxiosError) => {
+				NProgress.done()
 				// 响应出错时的处理逻辑
-				await Promise.reject(error)
+				return await Promise.reject(error)
+			}
 		)
 
 		// 发送请求

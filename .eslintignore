@@ -9,3 +9,4 @@ dist
 .eslintignore
 vite.config.ts
 *.d.ts
+commlit.config.js
