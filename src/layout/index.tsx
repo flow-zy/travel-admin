@@ -61,9 +61,7 @@ const LayOut: FC = () => {
 
 	useEffect(() => {
 		const arr = role && role.split(',')
-		const newMenu = data.filter(
-			menu => arr && arr.includes(menu.auth )
-		)
+		const newMenu = data.filter(menu => arr && arr.includes(menu.auth))
 		setMenuData(newMenu)
 		changeTag(newMenu)
 	}, [])

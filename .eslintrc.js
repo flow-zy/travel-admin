@@ -71,7 +71,7 @@ module.exports = {
 		'line-comment-position': 0,
 		'no-return-await': 0,
 		'consistent-return': 0,
-    'no-undef': 0,
-    '@typescript-eslint/prefer-nullish-coalescing':0
+		'no-undef': 0,
+		'@typescript-eslint/prefer-nullish-coalescing': 0
 	}
 }
