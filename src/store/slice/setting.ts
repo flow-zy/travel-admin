@@ -23,9 +23,8 @@ export const setting = createSlice({
 	reducers: {
 		save(state, action: PayloadAction<ISetting | null>) {
 			const payload = action.payload
-			Object.entries(payload).forEach(([key, value]) => {
-				state[key] = value
-			})
+			state.theme = { ...payload.theme }
+			state.componentSize = payload.componentSize
 		}
 	}
 })

@@ -6,7 +6,7 @@ import {
 	type CSSProperties,
 	type ReactElement
 } from 'react'
-import { Tabs, type TabsProps } from 'antd'
+import { Tabs, type TabsProps, type MenuProps } from 'antd'
 import { useLocation, useNavigate } from 'react-router-dom'
 import type { DragEndEvent } from '@dnd-kit/core'
 import { DndContext, PointerSensor, useSensor } from '@dnd-kit/core'
@@ -17,13 +17,11 @@ import {
 	useSortable
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-
+import { type IMenu } from '@/types'
 import { type MenuItem } from '@/layout'
+import menuData from '@/mock/data/menu'
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string
-interface Props {
-	tags: MenuItem[]
-}
 interface DraggableTabPaneProps extends React.HTMLAttributes<HTMLDivElement> {
 	'data-node-key': string
 }
@@ -32,7 +30,6 @@ const DraggableTabNode = ({ className, ...props }: DraggableTabPaneProps) => {
 		useSortable({
 			id: props['data-node-key']
 		})
-
 	const style: CSSProperties = {
 		...props.style,
 		transform: CSS.Transform.toString(transform && { ...transform, scaleX: 1 }),
@@ -48,14 +45,56 @@ const DraggableTabNode = ({ className, ...props }: DraggableTabPaneProps) => {
 	})
 }
 
-const TagView: FC<Props> = ({ tags }: Props) => {
+const TagView: FC = () => {
 	const { pathname } = useLocation()
 	const [activeKey, setActive] = useState<string>('/home')
 	const [items, setItems] = useState<TabsProps['items']>([])
+	const [tags, setTags] = useState<MenuProps['items']>([
+		{ key: '/home', icon: 'fa fa-home ant-menu-item-icon', label: '首页' }
+	])
 	const sensor = useSensor(PointerSensor, {
 		activationConstraint: { distance: 10 }
 	})
 	const navigate = useNavigate()
+	// 改变标签
+	const changeTag = (menuData: IMenu[]): void => {
+		const arr = pathname.split('/').splice(1)
+		let i = 0
+		if (arr.length > 1) {
+			const tag = menuData
+				.find(menu => menu.path.includes(arr[0]))
+				?.children?.map((tag, index) => {
+					if (tag.path.includes(arr[arr.length - 1])) {
+						i = index
+						return {
+							key: tag.path,
+							icon: `fa fa-${tag.iconClass}`,
+							label: tag.name
+						}
+					}
+				})[i] as MenuItem
+			setTags(() => {
+				const index =
+					tags && tags.findIndex(item => item && tag && item.key === tag.key)
+				if (index === -1) {
+					return tags && [...tags, tag]
+				}
+				return tags && [...tags]
+			})
+		} else {
+			const tag = menuData.find(menu => menu.path.includes(arr[0]))
+			const index = tag && tags.findIndex(item => item.key === tag.path)
+			index === -1 &&
+				setTags(() => [
+					...tags,
+					{
+						key: tag.path,
+						icon: `fa fa-${tag.iconClass}`,
+						label: tag.name
+					}
+				])
+		}
+	}
 	useEffect(() => {
 		const newItems: TabsProps['items'] =
 			tags &&
@@ -73,6 +112,7 @@ const TagView: FC<Props> = ({ tags }: Props) => {
 	}, [tags])
 	useEffect(() => {
 		setActive(pathname)
+		changeTag(menuData)
 	}, [pathname])
 	const changeRoute = (activeKey: string) => {
 		navigate(activeKey)

@@ -27,7 +27,14 @@ const menu: IMenu[] = [
 			{
 				name: '商品列表',
 				iconClass: 'list',
-				path: '/product/list'
+				path: '/product/list',
+				children: [
+					{
+						name: '商品详情',
+						iconClass: 'detail',
+						path: '/product/list/detail'
+					}
+				]
 			},
 			{
 				name: '订单列表',
@@ -61,6 +68,11 @@ const menu: IMenu[] = [
 				name: '权限列表',
 				path: '/org/permission',
 				iconClass: 'level-up'
+			},
+			{
+				name: '通知管理',
+				path: '/org/notice',
+				iconClass: 'bell'
 			}
 		]
 	},

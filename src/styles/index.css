@@ -37,3 +37,11 @@ button {
 .ant-tabs-tab:hover button {
 	display: block;
 }
+
+.ka-wrapper {
+	height: 100%;
+}
+
+.ka-content {
+	height: 100%;
+}

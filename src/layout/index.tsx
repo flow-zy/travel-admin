@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import type { NotificationPlacement } from 'antd/es/notification/interface'
 import moment from 'moment'
+import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 
-import { Sider, TagView, Header } from './components'
+import { Sider, TagView, Header, Breadcrumb } from './components'
 
 import { type RootState } from '@/store'
 import data from '@/mock/data/menu'
@@ -17,12 +18,12 @@ export type MenuItem = Required<MenuProps>['items'][number]
 const LayOut: FC = () => {
 	const { token } = useToken()
 	const { pathname } = useLocation()
+	const [full, setFull] = useState<boolean>(false)
+	const handle = useFullScreenHandle()
 	const [api, contextHolder] = notification.useNotification()
 	const Context = createContext({ name: 'Default' })
 	const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
-	const [tags, setTags] = useState<MenuProps['items']>([
-		{ key: '/home', icon: 'fa fa-home ant-menu-item-icon', label: '首页' }
-	])
+
 	const [defaultKey, setDefault] = useState<string[]>([pathname])
 	const [loading, setLoading] = useState(true)
 	const { role, username, nickname } = useSelector(
@@ -34,46 +35,6 @@ const LayOut: FC = () => {
 	const changeRoute: MenuProps['onClick'] = ({ key }): void => {
 		navigate(key)
 		setLoading(true)
-	}
-	// 改变标签
-	const changeTag = (menuData: IMenu[]): void => {
-		setDefault([pathname])
-		const arr = pathname.split('/').splice(1)
-		let i = 0
-		if (arr.length > 1) {
-			const tag = menuData
-				.find(menu => menu.path.includes(arr[0]))
-				?.children?.map((tag, index) => {
-					if (tag.path.includes(arr[arr.length - 1])) {
-						i = index
-						return {
-							key: tag.path,
-							icon: `fa fa-${tag.iconClass}`,
-							label: tag.name
-						}
-					}
-				})[i] as MenuItem
-			setTags(() => {
-				const index =
-					tags && tags.findIndex(item => item && tag && item.key === tag.key)
-				if (index === -1) {
-					return tags && [...tags, tag]
-				}
-				return tags && [...tags]
-			})
-		} else {
-			const tag = menuData.find(menu => menu.path.includes(arr[0]))
-			const index = tag && tags.findIndex(item => item.key === tag.path)
-			index === -1 &&
-				setTags(() => [
-					...tags,
-					{
-						key: tag.path,
-						icon: `fa fa-${tag.iconClass}`,
-						label: tag.name
-					}
-				])
-		}
 	}
 	// 通知提醒
 	const openNotification = (
@@ -105,72 +66,84 @@ const LayOut: FC = () => {
 			placement,
 			style: {
 				maxWidth: '260px'
-			}
+			},
+			duration: 3
 		})
 	}
+	// 全屏
+	const handleFull = (bool: boolean) => {
+		setFull(bool)
+		return bool ? handle.enter() : handle.exit()
+	}
 	useEffect(() => {
-		changeTag(menuData)
+		setDefault([pathname])
 		setLoading(false)
 	}, [pathname])
 	useEffect(() => {
 		const arr = role && role.split(',')
 		const newMenu = data.filter(menu => arr && arr.includes(menu.auth))
 		setMenuData(newMenu)
-		changeTag(newMenu)
 		openNotification()
 	}, [])
 
 	return (
-		<Layout className="layout">
-			{/* 菜单栏 */}
-			<Sider
-				data={menuData}
-				collpase={isCollapsed}
-				defaultKey={defaultKey}
-				click={(e: any) => {
-					changeRoute(e)
-				}}
-				style={{
-					backgroundColor: token.colorPrimaryBg
-				}}
-			/>
-			{/* 中间部分 */}
-			<Layout>
-				{/* 头部 */}
-				<Header
+		<FullScreen handle={handle} onChange={setFull}>
+			<Layout className="layout">
+				{/* 菜单栏 */}
+				<Sider
+					data={menuData}
 					collpase={isCollapsed}
-					click={() => {
-						setIsCollapsed(!isCollapsed)
+					defaultKey={defaultKey}
+					click={(e: any) => {
+						changeRoute(e)
 					}}
 					style={{
 						backgroundColor: token.colorPrimaryBg
 					}}
 				/>
-				{/* 内容区 */}
-				<Content>
-					{/* 动态tag */}
-					<TagView tags={tags ?? []} />
-					<Spin spinning={loading} tip="Loading...">
-						<Card
-							style={{
-								padding: '15px',
-								border: 'none',
-								backgroundColor: 'transparent',
-								height: 'calc(100vh - 52px - 64px)'
-							}}
-							bodyStyle={{
-								backgroundColor: '#fff',
-								border: 'none',
-								height: '100%'
-							}}
-						>
-							<Outlet />
-						</Card>
-					</Spin>
-				</Content>
+				{/* 中间部分 */}
+				<Layout>
+					{/* 头部 */}
+					<Header
+						collpase={isCollapsed}
+						click={() => {
+							setIsCollapsed(!isCollapsed)
+						}}
+						style={{
+							backgroundColor: token.colorPrimaryBg
+						}}
+						full={full}
+						handle={handleFull}
+					>
+						{/* 面包屑 */}
+						<Breadcrumb />
+					</Header>
+					{/* 内容区 */}
+					<Content>
+						{/* 动态tag */}
+						{/* <TagView /> */}
+						<Spin spinning={loading} tip="Loading...">
+							<Card
+								style={{
+									padding: '15px',
+									border: 'none',
+									backgroundColor: 'transparent',
+									height: 'calc(100vh - 52px - 64px)'
+								}}
+								bodyStyle={{
+									backgroundColor: '#fff',
+									border: 'none',
+									height: '100%'
+								}}
+							>
+								<Outlet />
+							</Card>
+						</Spin>
+					</Content>
+				</Layout>
+				{contextHolder}
 			</Layout>
-			{contextHolder}
-		</Layout>
+		</FullScreen>
 	)
 }
 export default LayOut

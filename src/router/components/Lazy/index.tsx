@@ -4,11 +4,12 @@ import {
 	type ComponentType,
 	type ReactNode,
 	type FC,
-	Fragment,
-	useEffect
+	useEffect,
+	useState
 } from 'react'
+import { useLocation } from 'react-router-dom'
 
-import Nprogress from '@/config/nprogress'
+import { NProgress } from '@/components'
 
 export namespace Type {
 	export interface defRC {
@@ -16,14 +17,12 @@ export namespace Type {
 	}
 }
 export const Progress: FC = () => {
-	Nprogress.start()
-	useEffect(
-		() => () => {
-			Nprogress.done()
-		},
-		[]
-	)
-	return <Fragment />
+	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const { key } = useLocation()
+	useEffect(() => {
+		setIsLoading(!isLoading)
+	}, [])
+	return <NProgress isAnimating={isLoading} key={key} />
 }
 function Lazy(callback: () => Promise<Type.defRC>): ReactNode {
 	const LazyRC = lazy(callback)

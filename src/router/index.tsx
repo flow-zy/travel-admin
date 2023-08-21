@@ -1,5 +1,6 @@
 import { Navigate, type RouteObject } from 'react-router-dom'
 import { Suspense, type ReactElement } from 'react'
+import { KeepAlive } from 'react-activation'
 
 import { Lazy, AuthRoute, Progress, ErrorBoundary } from './components'
 // 获取views  文件夹下的所有组件  动态的
@@ -28,9 +29,11 @@ Object.entries(modules).map(([key, Module]: [key: string, Module: any]) => {
 		pathArr.push({
 			path,
 			component: (
-				<Suspense fallback={<Progress />}>
-					<Module.default />
-				</Suspense>
+				<KeepAlive cacheKey="UNIQUE_ID">
+					<Suspense fallback={<Progress />}>
+						<Module.default />
+					</Suspense>
+				</KeepAlive>
 			)
 		})
 	}
