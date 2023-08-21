@@ -74,7 +74,6 @@ const SettingDrawer: FC<DrawerProps> = ({
 		setConfig((config: ISetting) => ({ ...config, componentSize: size }))
 	}
 	const changeTheme: ColorPickerProps['onChange'] = (_value, hex) => {
-		console.log(hex)
 		setConfig(config => ({
 			...config,
 			theme: {

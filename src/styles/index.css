@@ -8,6 +8,7 @@
 }
 
 img {
+	-o-object-fit: contain;
 	object-fit: contain;
 }
 
@@ -25,6 +26,7 @@ img {
 }
 
 button {
+	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 }
 
