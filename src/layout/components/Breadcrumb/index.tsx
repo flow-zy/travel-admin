@@ -3,8 +3,10 @@ import { Breadcrumb } from 'antd'
 import type { BreadcrumbProps } from 'antd'
 import { RightOutlined } from '@ant-design/icons'
 import { useLocation } from 'react-router-dom'
+
 import menuData from '@/mock/data/menu'
 import { type IMenu } from '@/types'
+
 const config = {
 	title: (
 		<Fragment>
@@ -14,9 +16,10 @@ const config = {
 	),
 	path: '/'
 }
-const renderBreadcrumbItems = (menu: IMenu): BreadcrumbProps['items'] => {
-	const breadcrumbItems = []
 
+const renderBreadcrumbItems = (menu: IMenu): BreadcrumbProps['items'] => {
+	const breadcrumbItems:BreadcrumbProps['items'] = []
+	const pathname=location.hash.slice(1)
 	breadcrumbItems.push({
 		title: (
 			<Fragment>
@@ -25,12 +28,14 @@ const renderBreadcrumbItems = (menu: IMenu): BreadcrumbProps['items'] => {
 			</Fragment>
 		)
 	})
-
+	if(pathname==='/home') return breadcrumbItems
 	if (menu.children && menu.children.length >= 0) {
-		const childBreadcrumbItems = menu.children.map(child =>
-			renderBreadcrumbItems(child)
-		)
-		breadcrumbItems.push(...childBreadcrumbItems)
+		 menu.children.forEach(child => {
+			if(pathname.includes(child.path)){
+				breadcrumbItems.push(...renderBreadcrumbItems(child))
+
+			}
+		})
 	}
 
 	return breadcrumbItems
@@ -42,7 +47,7 @@ const Breadcrumbs: FC = () => {
 	useEffect(() => {
 		const pathSnippets = pathname.split('/').filter(i => i)
 		const breadcrumbItems: BreadcrumbProps['items'] = []
-		breadcrumbItems.push(config)
+		pathname==='/home'? '':		breadcrumbItems.push(config)
 		let currentPath: string = ''
 		currentPath += `/${pathSnippets[0]}`
 		const menu = menuData.find(item => item.path === currentPath)
@@ -51,10 +56,6 @@ const Breadcrumbs: FC = () => {
 			const breadcrumbItem = renderBreadcrumbItems(menu)
 			breadcrumbItems.push(...breadcrumbItem)
 		}
-		console.log(
-			'🚀 ~ file: index.tsx:55 ~ useEffect ~ breadcrumbItems:',
-			breadcrumbItems
-		)
 		setItems(() => [...breadcrumbItems])
 	}, [pathname])
 	return (

@@ -121,7 +121,7 @@ const LayOut: FC = () => {
 					{/* 内容区 */}
 					<Content>
 						{/* 动态tag */}
-						{/* <TagView /> */}
+						<TagView />
 						<Spin spinning={loading} tip="Loading...">
 							<Card
 								style={{
