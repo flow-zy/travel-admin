@@ -3,8 +3,10 @@ import type { ThemeConfig } from 'antd'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface ISetting {
+	language?: string
 	theme?: ThemeConfig
-	componentSize?: 'small' | 'middle' | 'large' | undefined
+	componentSize?: 'small' | 'middle' | 'large'
+	collapse?: boolean
 	[key: string]: any
 }
 const initialState: ISetting = {
@@ -14,7 +16,9 @@ const initialState: ISetting = {
 			colorPrimary: '#03edf9'
 		}
 	},
-	componentSize: 'middle'
+	componentSize: 'middle',
+	language: '',
+	collapse: false
 }
 
 export const setting = createSlice({
@@ -25,9 +29,15 @@ export const setting = createSlice({
 			const payload = action.payload
 			state.theme = { ...payload.theme }
 			state.componentSize = payload.componentSize
+		},
+		setLanguage(state, { payload }: PayloadAction<string>) {
+			state.language = payload
+		},
+		setIsCollapsed(state, { payload }: PayloadAction<boolean>) {
+			state.collapse = payload
 		}
 	}
 })
-export const { save } = setting.actions
+export const { save, setLanguage, setIsCollapsed } = setting.actions
 
 export default setting.reducer

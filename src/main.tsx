@@ -8,6 +8,7 @@ import { persistor, store } from './store'
 import './styles/index.css'
 import 'reset.css'
 import '@/mock'
+import '@/config/language'
 import 'font-awesome/css/font-awesome.min.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

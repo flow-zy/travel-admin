@@ -48,3 +48,22 @@ export const exportExcel = (jsonData: any) => {
 	XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1')
 	XLSX.writeFile(workbook, 'data.xlsx')
 }
+
+/**
+ * @description 获取浏览器默认语言
+ * @return string
+ */
+export const getBrowserLang = (): string => {
+	const browserLang = navigator.language
+	let defaultBrowserLang = ''
+	if (
+		browserLang.toLowerCase() === 'cn' ||
+		browserLang.toLowerCase() === 'zh' ||
+		browserLang.toLowerCase() === 'zh-cn'
+	) {
+		defaultBrowserLang = 'zh'
+	} else {
+		defaultBrowserLang = 'en'
+	}
+	return defaultBrowserLang
+}
