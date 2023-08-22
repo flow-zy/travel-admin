@@ -18,8 +18,8 @@ const config = {
 }
 
 const renderBreadcrumbItems = (menu: IMenu): BreadcrumbProps['items'] => {
-	const breadcrumbItems:BreadcrumbProps['items'] = []
-	const pathname=location.hash.slice(1)
+	const breadcrumbItems: BreadcrumbProps['items'] = []
+	const pathname = location.hash.slice(1)
 	breadcrumbItems.push({
 		title: (
 			<Fragment>
@@ -28,12 +28,11 @@ const renderBreadcrumbItems = (menu: IMenu): BreadcrumbProps['items'] => {
 			</Fragment>
 		)
 	})
-	if(pathname==='/home') return breadcrumbItems
+	if (pathname === '/home') return breadcrumbItems
 	if (menu.children && menu.children.length >= 0) {
-		 menu.children.forEach(child => {
-			if(pathname.includes(child.path)){
+		menu.children.forEach(child => {
+			if (pathname.includes(child.path)) {
 				breadcrumbItems.push(...renderBreadcrumbItems(child))
-
 			}
 		})
 	}
@@ -47,7 +46,7 @@ const Breadcrumbs: FC = () => {
 	useEffect(() => {
 		const pathSnippets = pathname.split('/').filter(i => i)
 		const breadcrumbItems: BreadcrumbProps['items'] = []
-		pathname==='/home'? '':		breadcrumbItems.push(config)
+		pathname === '/home' ? '' : breadcrumbItems.push(config)
 		let currentPath: string = ''
 		currentPath += `/${pathSnippets[0]}`
 		const menu = menuData.find(item => item.path === currentPath)

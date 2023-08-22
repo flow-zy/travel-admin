@@ -53,7 +53,7 @@ const Sider: FC<Props> = ({
 		return menuItems
 	}
 	const menuList = generateMenus(data)
-	const rootSubmenuKeys: string[] = menuList.map(menu => menu?.key as string)
+	const rootSubmenuKeys: string[] = menuList.map(menu => menu.key) as string[]
 	const onOpenChange: MenuProps['onOpenChange'] = keys => {
 		const latestOpenKey = keys.find(key => !openKeys.includes(key))
 		if (!rootSubmenuKeys.includes(latestOpenKey)) {

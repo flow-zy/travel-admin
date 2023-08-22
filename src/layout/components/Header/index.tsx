@@ -1,4 +1,4 @@
-import { type FC, useState, Fragment, ReactElement } from 'react'
+import { type FC, useState, Fragment, type ReactElement } from 'react'
 import {
 	FullscreenOutlined,
 	BellOutlined,
@@ -13,10 +13,11 @@ import { Layout, Dropdown, Space, Avatar, Tooltip, Modal, message } from 'antd'
 import type { MenuProps, TooltipProps, ModalProps as ModelProps } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+
 import SettingDrawer from '../SettingDrawer'
+
 import avatar from '@/assets/avatar.png'
 import { type RootState } from '@/store'
-
 import { logout as log } from '@/store/slice/user'
 
 const { confirm } = Modal

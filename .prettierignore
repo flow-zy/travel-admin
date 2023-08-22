@@ -5,3 +5,6 @@
 **/*.sh
 
 /public/*
+
+vite-env.d.ts
+/stats.html

@@ -1,9 +1,11 @@
 import { type FC, useState } from 'react'
-import { save, type ISetting } from '@/store/slice/setting'
 import { Drawer, Button, ColorPicker, Space } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
+
+import { save, type ISetting } from '@/store/slice/setting'
 import { type RootState } from '@/store'
-type Props = {
+
+interface Props {
 	open: boolean
 	close?: Function
 }
