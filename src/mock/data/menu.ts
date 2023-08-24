@@ -127,7 +127,7 @@ const menu: IMenu[] = [
 		name: '机票管理',
 		auth: 'ticket',
 		path: '/ticket',
-		iconClass: 'ticket',
+		iconClass: 'plane',
 		children: [
 			{
 				name: '订单列表',

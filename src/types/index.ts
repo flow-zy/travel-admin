@@ -1,3 +1,5 @@
+import { type ReactElement } from 'react'
+
 // 用户的类型
 export interface IUser {
 	id?: string
@@ -27,4 +29,19 @@ export interface IMenu {
 export interface IData {
 	list: IUser[]
 	total: number
+}
+
+export interface IDataType {
+	key: string
+	id: string
+	username: string
+	role: string
+	status: number
+}
+
+export interface IBtn {
+	icon?: string | ReactElement
+	name: string
+	click?: Function
+	className?: string
 }
