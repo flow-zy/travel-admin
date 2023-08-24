@@ -17,7 +17,7 @@ export namespace Type {
 	}
 }
 export const Progress: FC = () => {
-	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const { key } = useLocation()
 	useEffect(() => {
 		setIsLoading(!isLoading)
