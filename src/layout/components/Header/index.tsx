@@ -33,12 +33,12 @@ interface Props {
 const items: MenuProps['items'] = [
 	{
 		label: '个人信息',
-		key: '/user/info',
+		key: 'user/info',
 		icon: <i className="fa fa-user"></i>
 	},
 	{
 		label: '修改密码',
-		key: '/user/password',
+		key: 'user/password',
 		icon: <i className="fa fa-lock"></i>
 	},
 	{

@@ -1,6 +1,6 @@
 import { type FC, useState, useEffect, createContext, Fragment } from 'react'
 import { Spin, Card, Layout, type MenuProps, theme, notification } from 'antd'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import type { NotificationPlacement } from 'antd/es/notification/interface'
 import moment from 'moment'
@@ -11,18 +11,21 @@ import { Sider, TagView, Header, Breadcrumb } from './components'
 import { type RootState } from '@/store'
 import data from '@/mock/data/menu'
 import { type IMenu } from '@/types'
+import { setIsCollapsed } from '@/store/slice/setting'
 
 const { Content } = Layout
 const { useToken } = theme
 export type MenuItem = Required<MenuProps>['items'][number]
 const LayOut: FC = () => {
 	const { token } = useToken()
+	const dispatch = useDispatch()
+	const { collapse } = useSelector((state: RootState) => state.setting)
 	const { pathname } = useLocation()
 	const [full, setFull] = useState<boolean>(false)
 	const handle = useFullScreenHandle()
 	const [api, contextHolder] = notification.useNotification()
 	const Context = createContext({ name: 'Default' })
-	const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
+	const [isCollapsed, setIsCollapse] = useState<boolean>(collapse)
 
 	const [defaultKey, setDefault] = useState<string[]>([pathname])
 	const [loading, setLoading] = useState(true)
@@ -107,7 +110,8 @@ const LayOut: FC = () => {
 					<Header
 						collpase={isCollapsed}
 						click={() => {
-							setIsCollapsed(!isCollapsed)
+							setIsCollapse(!isCollapsed)
+							dispatch(setIsCollapsed(!isCollapsed))
 						}}
 						style={{
 							backgroundColor: token.colorPrimaryBg

@@ -8,89 +8,144 @@ const menu: IMenu[] = [
 		auth: 'document'
 	},
 	{
-		name: '数据大屏',
+		name: '数据报表',
 		iconClass: 'area-chart',
 		path: '/chart',
 		auth: 'document'
 	},
 	{
-		name: '商品管理',
-		path: '/product',
-		iconClass: 'product-hunt',
-		auth: 'products',
+		name: '权限管理',
+		path: '/premission',
+		iconClass: 'compass',
+		auth: 'premission',
 		children: [
 			{
-				name: '分类列表',
+				name: '账号管理',
 				iconClass: 'bookmark',
-				path: '/product/category'
+				path: '/premission/account'
 			},
 			{
-				name: '商品列表',
-				iconClass: 'list',
-				path: '/product/list',
-				children: [
-					{
-						name: '商品详情',
-						iconClass: 'detail',
-						path: '/product/list/detail'
-					}
-				]
+				name: '角色管理',
+				iconClass: 'users',
+				path: '/premission/user'
+			}
+		]
+	},
+	{
+		name: '会员管理',
+		iconClass: 'edit',
+		path: '/member',
+		auth: 'member',
+		children: [
+			{
+				name: '会员列表',
+				path: '/member/list',
+				iconClass: 'list'
+			},
+			{
+				name: '会员类型设置',
+				path: '/member/type',
+				iconClass: 'list-alt'
+			}
+		]
+	},
+	{
+		name: '签证管理',
+		path: '/visa',
+		iconClass: 'cc-visa',
+		auth: 'visa',
+		children: [
+			{
+				name: '签证列表',
+				path: '/visa/list',
+				iconClass: 'list'
+			},
+			{
+				name: '签证设置',
+				path: '/visa/setting',
+				iconClass: 'cogs'
+			},
+			{
+				name: '订单列表',
+				path: '/visa/order',
+				iconClass: 'first-order'
+			}
+		]
+	},
+	{
+		name: '旅游团管理',
+		path: '/travel',
+		auth: 'tourist',
+		iconClass: 'drivers-license',
+		children: [
+			{
+				name: '产品列表',
+				path: '/travel/list',
+				iconClass: 'list'
+			},
+			{
+				name: '产品设置',
+				path: '/travel/setting',
+				iconClass: 'cogs'
 			},
 			{
 				name: '订单列表',
 				iconClass: 'first-order',
-				path: '/product/order'
-			},
-			{
-				name: '支付',
-				iconClass: 'paypal',
-				path: '/product/payment'
+				path: '/travel/order'
 			}
 		]
 	},
 	{
-		name: '组织架构',
-		iconClass: 'users',
-		path: '/org',
-		auth: 'roles',
+		name: '酒店管理',
+		path: '/groggery',
+		iconClass: 'hotel',
+		auth: 'groggery',
 		children: [
 			{
-				name: '菜单列表',
-				path: '/org/menu',
-				iconClass: 'window-restore'
+				name: '酒店列表',
+				path: '/groggery/list',
+				iconClass: 'list'
 			},
 			{
-				name: '用户列表',
-				path: '/org/list',
-				iconClass: 'list-alt'
+				name: '酒店业绩',
+				path: '/groggery/performance',
+				iconClass: 'percent'
 			},
 			{
-				name: '权限列表',
-				path: '/org/permission',
-				iconClass: 'level-up'
+				name: '酒店设置',
+				path: '/groggery/setting',
+				iconClass: 'cogs'
 			},
 			{
-				name: '通知管理',
-				path: '/org/notice',
-				iconClass: 'bell'
+				name: '酒店订单',
+				path: '/groggery/order',
+				iconClass: 'first-order'
 			}
 		]
 	},
 	{
-		name: '个人管理',
-		path: '/user',
-		iconClass: 'user',
-		auth: 'users',
+		name: '机票管理',
+		auth: 'ticket',
+		path: '/ticket',
+		iconClass: 'ticket',
 		children: [
 			{
-				name: '个人信息',
-				path: '/user/info',
-				iconClass: 'info'
-			},
+				name: '订单列表',
+				path: '/ticket/list',
+				iconClass: 'list'
+			}
+		]
+	},
+	{
+		name: '系统配置',
+		path: '/system',
+		iconClass: 'cogs',
+		auth: 'system',
+		children: [
 			{
-				name: '修改密码',
-				path: '/user/password',
-				iconClass: 'compass'
+				name: '基础数据配置',
+				path: '/system/base',
+				iconClass: 'bars'
 			}
 		]
 	}

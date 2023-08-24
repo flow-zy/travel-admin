@@ -10,59 +10,35 @@ const permissions: IPermission[] = [
 	},
 	{
 		id: 2,
-		name: 'users'
+		name: 'premission'
 	},
 	{
 		id: 3,
-		name: 'category'
+		name: 'member'
 	},
 	{
 		id: 4,
-		name: 'orders'
+		name: 'visa'
 	},
 	{
 		id: 5,
-		name: 'carts'
+		name: 'tourist'
 	},
 	{
 		id: 6,
-		name: 'products'
+		name: 'ticket'
 	},
 	{
 		id: 7,
-		name: 'settings'
+		name: 'system'
 	},
 	{
 		id: 8,
-		name: 'roles'
+		name: 'groggery'
 	},
 	{
 		id: 9,
-		name: 'permissions'
-	},
-	{
-		id: 10,
-		name: 'profile'
-	},
-	{
-		id: 11,
-		name: 'logs'
-	},
-	{
-		id: 12,
-		name: 'notifications'
-	},
-	{
-		id: 13,
-		name: 'addresses'
-	},
-	{
-		id: 14,
-		name: 'payments'
-	},
-	{
-		id: 15,
-		name: 'gateways'
+		name: 'users'
 	}
 ]
 export default permissions

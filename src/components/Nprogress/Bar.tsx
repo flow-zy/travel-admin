@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Bar: React.FC<{ animationDuration: number; progress: number }> = ({
 	animationDuration,
 	progress

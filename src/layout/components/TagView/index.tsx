@@ -68,17 +68,19 @@ const TagView: FC = () => {
 	// 改变标签
 	const changeTag = (menuData: IMenu[]): void => {
 		flatern(menuData)
-		const current = newMenu.find(menu => menu.path.includes(pathname))
-		const index = tags.findIndex(tag => tag.key === current?.path)
-		if (index === -1) {
-			setTags(() => [
-				...tags,
-				{
-					key: current.path,
-					icon: `fa fa-${current.iconClass} ant-menu-icon`,
-					label: current.name
-				}
-			])
+		if (!pathname.includes('info') || !pathname.includes('password')) {
+			const current = newMenu.find(menu => menu.path.includes(pathname))
+			const index = tags.findIndex(tag => tag.key === current?.path)
+			if (index === -1) {
+				setTags(() => [
+					...tags,
+					{
+						key: current.path,
+						icon: `fa fa-${current.iconClass} ant-menu-icon`,
+						label: current.name
+					}
+				])
+			}
 		}
 	}
 	useEffect(() => {

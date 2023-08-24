@@ -16,7 +16,7 @@ const resources = {
 // @ts-expect-error
 void i18n.use(initReactI18next).init({
 	resources,
-	lngs: 'zh',
+	lngs: 'en',
 	interpolation: {
 		escapeValue: false
 	}
