@@ -3,9 +3,9 @@ import { type ReactElement } from 'react'
 // 用户的类型
 export interface IUser {
 	id?: string
-	username: string
+	username?: string
 	nickname?: string
-	password: string
+	password?: string
 	email?: string
 	phone?: string | RegExp
 	gender?: string
