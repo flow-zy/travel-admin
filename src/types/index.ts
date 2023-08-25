@@ -11,10 +11,11 @@ export interface IUser {
 	gender?: string
 	role?: string
 	token?: string
+	status?: number | string
 	avatar?: string
 	createAt?: Date
 	updateAt?: Date
-	[key: string]: string | undefined | RegExp | Date
+	[key: string]: string | undefined | RegExp | Date | number
 }
 // 菜单栏类型
 export interface IMenu {
@@ -31,12 +32,8 @@ export interface IData {
 	total: number
 }
 
-export interface IDataType {
-	key: string
-	id: string
-	username: string
-	role: string
-	status: number
+export interface IDataType extends IUser {
+	key?: string
 }
 
 export interface IBtn {

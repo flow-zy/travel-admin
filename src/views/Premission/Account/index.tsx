@@ -3,34 +3,74 @@ import { Form, Switch, Button, Select, Input, type PaginationProps } from 'antd'
 import { type ColumnsType } from 'antd/es/table'
 import { ExportOutlined, FolderAddOutlined } from '@ant-design/icons'
 
+import Modal from './components/Modal'
+
 import { Table, ButtonGroup } from '@/components'
 import { type IBtn, type IDataType } from '@/types'
 
 const pageOptions: PaginationProps['pageSizeOptions'] = [10, 15, 20, 40]
-const btns: IBtn[] = [
-	{
-		name: '新增',
-		icon: <FolderAddOutlined />,
-		click: () => {}
-	},
-	{
-		name: '导出',
-		icon: <ExportOutlined />,
-		click: () => {}
-	}
-]
+declare interface Open {
+	type?: boolean
+	[key: string]: boolean
+}
 const Account: FC = () => {
 	const [userList, setUserList] = useState<IDataType[]>([])
 	const [loading, setLoading] = useState<boolean>(true)
+	const [open, setOpen] = useState<Open>({
+		add: false,
+		edit: false,
+		reset: false
+	})
 	const [query, setQuery] = useState<{ pageSize: number; pageNum: number }>({
 		pageSize: 10,
 		pageNum: 1
 	})
-	const edit = (id: string) => {
-		console.log('🚀 ~ file: index.tsx:15 ~ id:', id)
+	const [type, setType] = useState<string>('')
+	const [title, setTitle] = useState<string>('')
+	const [form, setForm] = useState<{
+		add: IDataType
+		edit: IDataType
+		reset: IDataType
+		[key: string]: IDataType
+	}>({
+		add: { username: '', password: '', role: '', status: 0 },
+		edit: {
+			username: '',
+			password: ''
+		},
+		reset: {
+			username: '',
+			password: ''
+		}
+	})
+	const edit = (user: IDataType) => {
+		setOpen({ ...open, edit: true })
+		setTitle('修改账号')
+		setType('edit')
+		setForm({ ...form, edit: user })
 	}
-	const updatePwd = (id: string) => {
-		console.log('🚀 ~ file: index.tsx:16 ~ updatePwd ~ id:', id)
+	const resetPwd = (user: IDataType) => {
+		setOpen({ ...open, reset: true })
+		setTitle('重置密码')
+		setType('reset')
+		setForm({ ...form, reset: user })
+	}
+	// 取消
+	const close = () => {
+		setOpen({ ...open, [type]: false })
+	}
+	// 确认
+	const confirm = () => {}
+	// 导出
+	const exportAccount = (): void => {}
+	// 改变分页器
+	const onChange: PaginationProps['onShowSizeChange'] = (page, size) => {
+		setQuery({ pageSize: size, pageNum: page })
+	}
+	// 改变账号状态
+	const changeStatus = (id: string, status: number | string) => {
+		console.log('🚀 ~ file: index.tsx:26 ~ changeStatus ~ id:', id)
+		console.log('🚀 ~ file: index.tsx:27 ~ changeStatus ~ status:', status)
 	}
 	const columns: ColumnsType<IDataType> = [
 		{
@@ -56,14 +96,46 @@ const Account: FC = () => {
 			dataIndex: 'status',
 			key: 'status',
 			align: 'center',
-			render: status => (
-				<Switch checked={status} onChange={() => {}} size="default" />
+			render: (_text, record) => (
+				<Switch
+					checked={Boolean(record.status)}
+					onChange={() => changeStatus(record.id, record.status)}
+					size="default"
+				/>
+			)
+		},
+		{
+			title: '操作',
+			key: 'action',
+			align: 'center',
+			render: (_text: any, record: IDataType) => (
+				<div className="flex justify-center items-center">
+					<Button type="link" size="small" onClick={() => edit(record)}>
+						修改
+					</Button>
+					<Button type="link" size="small" onClick={() => resetPwd(record)}>
+						重置密码
+					</Button>
+				</div>
 			)
 		}
 	]
-	const onChange: PaginationProps['onShowSizeChange'] = (page, size) => {
-		setQuery({ pageSize: size, pageNum: page })
-	}
+	const btns: IBtn[] = [
+		{
+			name: '新增',
+			icon: <FolderAddOutlined />,
+			click: () => {
+				setOpen({ ...open, add: true })
+				setTitle('新增账号')
+				setType('add')
+			}
+		},
+		{
+			name: '导出',
+			icon: <ExportOutlined />,
+			click: exportAccount
+		}
+	]
 	useEffect(() => {
 		setUserList([
 			{
@@ -129,9 +201,15 @@ const Account: FC = () => {
 				columns={columns}
 				dataSource={userList}
 				isLoading={loading}
-				edit={edit}
-				updatePwd={updatePwd}
 				options={pageOptions}
+			/>
+			<Modal
+				type={type}
+				title={title}
+				open={open[type]}
+				close={close}
+				confirm={confirm}
+				data={form[type]}
 			/>
 		</div>
 	)

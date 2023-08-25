@@ -1,5 +1,5 @@
 import { type FC, useState, useEffect, createContext, Fragment } from 'react'
-import { Spin, Card, Layout, type MenuProps, theme, notification } from 'antd'
+import { Card, Layout, type MenuProps, theme, notification } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import type { NotificationPlacement } from 'antd/es/notification/interface'
@@ -12,6 +12,7 @@ import { type RootState } from '@/store'
 import data from '@/mock/data/menu'
 import { type IMenu } from '@/types'
 import { setIsCollapsed } from '@/store/slice/setting'
+import { Loading } from '@/components'
 
 const { Content } = Layout
 const { useToken } = theme
@@ -26,7 +27,6 @@ const LayOut: FC = () => {
 	const [api, contextHolder] = notification.useNotification()
 	const Context = createContext({ name: 'Default' })
 	const [isCollapsed, setIsCollapse] = useState<boolean>(collapse)
-
 	const [defaultKey, setDefault] = useState<string[]>([pathname])
 	const [loading, setLoading] = useState(true)
 	const { role, username, nickname } = useSelector(
@@ -126,7 +126,7 @@ const LayOut: FC = () => {
 					<Content>
 						{/* 动态tag */}
 						<TagView />
-						<Spin spinning={loading} tip="Loading...">
+						<Loading load={loading}>
 							<Card
 								style={{
 									padding: '15px',
@@ -142,7 +142,7 @@ const LayOut: FC = () => {
 							>
 								<Outlet />
 							</Card>
-						</Spin>
+						</Loading>
 					</Content>
 				</Layout>
 				{contextHolder}

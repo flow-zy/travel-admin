@@ -9,7 +9,6 @@ import i18n from 'i18next'
 
 import 'moment/dist/locale/zh-cn'
 import routes from './router'
-import { Loading } from './components'
 
 import { type RootState } from '@/store'
 import { getBrowserLang } from '@/utils'
@@ -43,7 +42,6 @@ const App: FC = () => {
 				locale={i18nLocale}
 			>
 				<RouterProvider router={createHashRouter(routes)}></RouterProvider>
-				<Loading />
 			</ConfigProvider>
 		</div>
 	)

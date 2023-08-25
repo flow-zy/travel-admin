@@ -25,8 +25,6 @@ export const useSlice = createSlice({
 			})
 		},
 		logout(state) {
-			const loading: HTMLElement = document.querySelector('.loading')
-			loading.style.display = 'block'
 			// let newState=state
 			Object.keys(state).forEach(key => {
 				if (['username', 'password'].includes(key)) {
@@ -38,7 +36,6 @@ export const useSlice = createSlice({
 			setTimeout(() => {
 				removeToken()
 				location.reload()
-				loading.style.display = 'none'
 			}, 3000)
 		}
 	}
