@@ -2,7 +2,7 @@ import { Table, Pagination } from 'antd'
 import { type ColumnsType } from 'antd/es/table'
 import { type FC, Fragment } from 'react'
 
-import { type IDataType } from '@/types'
+import { type IRole, type IDataType } from '@/types'
 
 interface Props<T> {
 	columns: ColumnsType<T>
@@ -15,7 +15,9 @@ interface Props<T> {
 	total?: number
 	options?: number[] | string[]
 }
-const Tables: FC<Props<IDataType>> = (props: Props<IDataType>) => {
+const Tables: FC<Props<IDataType | IRole>> = (
+	props: Props<IDataType | IRole>
+) => {
 	const {
 		columns,
 		isLoading = true,
@@ -36,13 +38,12 @@ const Tables: FC<Props<IDataType>> = (props: Props<IDataType>) => {
 				pagination={false}
 				loading={isLoading}
 				style={{
-					minHeight: 300
+					minHeight: 250
 				}}
 			></Table>
 			{/* 分页器区域 */}
 			{isShowPage ? (
 				<Pagination
-					className="mt-5"
 					total={total}
 					showSizeChanger
 					showQuickJumper

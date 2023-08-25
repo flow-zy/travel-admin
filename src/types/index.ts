@@ -42,3 +42,16 @@ export interface IBtn {
 	click?: Function
 	className?: string
 }
+interface Pre {
+	id: number | string
+	name: string
+	children: Pre[]
+}
+export interface IRole {
+	id?: string | number
+	key?: string
+	name: string
+	description: string
+	premission?: Pre
+	[key: string]: string | undefined | number | Pre
+}
