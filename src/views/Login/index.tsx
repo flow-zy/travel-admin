@@ -30,7 +30,7 @@ const Login: FC = () => {
 		const { data, code, message } = await loginApi<IUser>({
 			url: '/account/login',
 			method: 'get',
-			data: values
+			params: values
 		})
 		if (code === 200) {
 			void messageApi.open({

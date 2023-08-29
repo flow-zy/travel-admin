@@ -4,7 +4,7 @@ import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }): UserConfig => {
-	const { VITE_APP_PROXY, VITE_APP_BASEURL, VITE_APP_PORT, ENV } = loadEnv(
+	const { VITE_APP_PROXY, VITE_APP_PORT, ENV } = loadEnv(
 		mode,
 		process.cwd(),
 		''
@@ -20,15 +20,10 @@ export default defineConfig(({ mode }): UserConfig => {
 			port: Number(VITE_APP_PORT),
 			open: false,
 			proxy: {
-				VITE_APP_BASEURL: {
+				'/api': {
 					target: VITE_APP_PROXY,
-					ws: true,
 					changeOrigin: true,
-					rewrite(path) {
-						// rewrite
-						path = path.replace(new RegExp(`^${VITE_APP_BASEURL}`), '')
-						return path
-					}
+					rewrite: path => path.replace(/^\/api/, '')
 				}
 			}
 		},

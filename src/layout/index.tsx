@@ -9,7 +9,7 @@ import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 import { Sider, TagView, Header, Breadcrumb } from './components'
 
 import { type RootState } from '@/store'
-import data from '@/mock/data/menu'
+import data from '@/mock/menu'
 import { type IMenu } from '@/types'
 import { setIsCollapsed } from '@/store/slice/setting'
 import { Loading } from '@/components'
@@ -29,9 +29,7 @@ const LayOut: FC = () => {
 	const [isCollapsed, setIsCollapse] = useState<boolean>(collapse)
 	const [defaultKey, setDefault] = useState<string[]>([pathname])
 	const [loading, setLoading] = useState(true)
-	const { role, username, nickname } = useSelector(
-		(state: RootState) => state.user
-	)
+	const { username, nickname } = useSelector((state: RootState) => state.user)
 	const [menuData, setMenuData] = useState<IMenu[]>([])
 	const navigate = useNavigate()
 	// 点击菜单
@@ -83,8 +81,7 @@ const LayOut: FC = () => {
 		setLoading(false)
 	}, [pathname])
 	useEffect(() => {
-		const arr = role && role.split(',')
-		const newMenu = data.filter(menu => arr && arr.includes(menu.auth))
+		const newMenu = data.filter(menu => menu)
 		setMenuData(newMenu)
 		openNotification()
 	}, [])

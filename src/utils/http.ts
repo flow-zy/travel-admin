@@ -4,6 +4,9 @@ import axios, {
 	type AxiosResponse,
 	type AxiosInstance
 } from 'axios'
+import { message } from 'antd'
+
+import { getToken } from './token'
 
 import NProgress from '@/config/nprogress'
 
@@ -12,13 +15,24 @@ export interface ResponseData<T> {
 	code: number
 	data: T | null
 }
-
+const checkPrime = (status: number) => {
+	switch (status) {
+		case 404:
+			void message.error('请求资源不存在')
+			break
+		case 500:
+			void message.error('服务器错误')
+			break
+		default:
+			break
+	}
+}
 const fetchData = async <T>(
 	config: AxiosRequestConfig
 ): Promise<ResponseData<T>> => {
 	const instance: AxiosInstance = axios.create({
-		baseURL: import.meta.env.VITE_APP_BASEURL,
-		timeout: 3000
+		baseURL: `${import.meta.env.VITE_APP_BASEURL}`,
+		timeout: 5000
 	})
 
 	let requestInterceptor: number | undefined
@@ -31,6 +45,9 @@ const fetchData = async <T>(
 				// 可以在发送请求前进行一些操作，如添加认证信息等
 				{
 					NProgress.start()
+					if (getToken()) {
+						requestConfig.headers.Authorization = getToken()
+					}
 					return requestConfig
 				},
 			async (error: AxiosError) => {
@@ -50,6 +67,7 @@ const fetchData = async <T>(
 				},
 			async (error: AxiosError) => {
 				NProgress.done()
+				checkPrime(error.response.status)
 				// 响应出错时的处理逻辑
 				return await Promise.reject(error)
 			}
