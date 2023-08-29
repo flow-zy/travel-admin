@@ -28,7 +28,7 @@ const Login: FC = () => {
 	}
 	const onFinish = async (values: IUser) => {
 		const { data, code, message } = await loginApi<IUser>({
-			url: '/login',
+			url: '/account/login',
 			method: 'get',
 			data: values
 		})

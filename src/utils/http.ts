@@ -17,7 +17,7 @@ const fetchData = async <T>(
 	config: AxiosRequestConfig
 ): Promise<ResponseData<T>> => {
 	const instance: AxiosInstance = axios.create({
-		baseURL: import.meta.env.VITE_APP_BASE,
+		baseURL: import.meta.env.VITE_APP_BASEURL,
 		timeout: 3000
 	})
 

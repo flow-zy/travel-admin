@@ -4,17 +4,33 @@ import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }): UserConfig => {
-	const env = loadEnv(mode, process.cwd(), '')
+	const { VITE_APP_PROXY, VITE_APP_BASEURL, VITE_APP_PORT, ENV } = loadEnv(
+		mode,
+		process.cwd(),
+		''
+	)
 	return {
 		plugins: [
 			react(),
 			// @ts-ignore
 			visualizer()
 		],
-		base: env.NODE_ENV === 'development' ? './' : '/travel-admin/',
+		base: ENV === 'development' ? './' : '/travel-admin/',
 		server: {
-			port: Number(env.VITE_APP_PORT),
-			open: false
+			port: Number(VITE_APP_PORT),
+			open: false,
+			proxy: {
+				VITE_APP_BASEURL: {
+					target: VITE_APP_PROXY,
+					ws: true,
+					changeOrigin: true,
+					rewrite(path) {
+						// rewrite
+						path = path.replace(new RegExp(`^${VITE_APP_BASEURL}`), '')
+						return path
+					}
+				}
+			}
 		},
 		resolve: {
 			alias: {
