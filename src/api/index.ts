@@ -8,3 +8,7 @@ export const login = async <T>(
 export const userAll = async <T>(
 	config: AxiosRequestConfig
 ): Promise<ResponseData<T>> => await request(config)
+// 修改用户状态
+export const editStatus = async <T>(
+	config: AxiosRequestConfig
+): Promise<ResponseData<T>> => await request(config)

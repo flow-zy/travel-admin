@@ -29,7 +29,13 @@ const LayOut: FC = () => {
 	const [isCollapsed, setIsCollapse] = useState<boolean>(collapse)
 	const [defaultKey, setDefault] = useState<string[]>([pathname])
 	const [loading, setLoading] = useState(true)
+<<<<<<< Updated upstream
 	const { username, nickname } = useSelector((state: RootState) => state.user)
+=======
+	const { permission, username, nickname } = useSelector(
+		(state: RootState) => state.user
+	)
+>>>>>>> Stashed changes
 	const [menuData, setMenuData] = useState<IMenu[]>([])
 	const navigate = useNavigate()
 	// 点击菜单
@@ -81,7 +87,12 @@ const LayOut: FC = () => {
 		setLoading(false)
 	}, [pathname])
 	useEffect(() => {
+<<<<<<< Updated upstream
 		const newMenu = data.filter(menu => menu)
+=======
+		const arr = permission && permission.split(',')
+		const newMenu = data.filter(menu => arr && arr.includes(menu.auth))
+>>>>>>> Stashed changes
 		setMenuData(newMenu)
 		openNotification()
 	}, [])

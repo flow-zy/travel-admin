@@ -1,12 +1,23 @@
-import { useState, type FC, useEffect } from 'react'
-import { Form, Switch, Button, Select, Input, type PaginationProps } from 'antd'
+import { useState, type FC, useEffect, Fragment } from 'react'
+import {
+	Form,
+	Switch,
+	Button,
+	Select,
+	Input,
+	type PaginationProps,
+	message
+} from 'antd'
 import { type ColumnsType } from 'antd/es/table'
 import { ExportOutlined, FolderAddOutlined } from '@ant-design/icons'
+import { useSelector } from 'react-redux'
 
 import Modal from './components/Modal'
 
 import { Table, ButtonGroup } from '@/components'
-import { type IBtn, type IDataType } from '@/types'
+import type { IBtn, IDataType, IUser } from '@/types'
+import { userAll, editStatus } from '@/api'
+import { type RootState } from '@/store'
 
 const pageOptions: PaginationProps['pageSizeOptions'] = [10, 15, 20, 40]
 declare interface Open {
@@ -14,7 +25,10 @@ declare interface Open {
 	[key: string]: boolean
 }
 const Account: FC = () => {
+	const { role } = useSelector((state: RootState) => state.user)
 	const [userList, setUserList] = useState<IDataType[]>([])
+	const [total, setTotal] = useState<number>(0)
+	const [messageApi, contextHolder] = message.useMessage()
 	const [loading, setLoading] = useState<boolean>(true)
 	const [open, setOpen] = useState<Open>({
 		add: false,
@@ -58,6 +72,39 @@ const Account: FC = () => {
 	// 取消
 	const close = () => {
 		setOpen({ ...open, [type]: false })
+		setForm({
+			add: { username: '', password: '', role: '', status: 0 },
+			edit: {
+				username: '',
+				password: ''
+			},
+			reset: {
+				username: '',
+				password: ''
+			}
+		})
+		setType('')
+	}
+	const getUser = async () => {
+		const { data, message, code } = await userAll<{
+			list: IUser[]
+			total: number
+			query: { pageSize: number; pageNum: number }
+		}>({
+			url: '/users/all',
+			method: 'get',
+			params: query
+		})
+		void messageApi.open({
+			type: code === 200 ? 'success' : 'error',
+			content: message,
+			onClose: () => {
+				if (code === 200) {
+					setUserList(data.list)
+					setTotal(data.total)
+				}
+			}
+		})
 	}
 	// 确认
 	const confirm = () => {}
@@ -68,14 +115,32 @@ const Account: FC = () => {
 		setQuery({ pageSize: size, pageNum: page })
 	}
 	// 改变账号状态
-	const changeStatus = (id: string, status: number | string) => {
-		console.log('🚀 ~ file: index.tsx:26 ~ changeStatus ~ id:', id)
-		console.log('🚀 ~ file: index.tsx:27 ~ changeStatus ~ status:', status)
+	const changeStatus = async (id: string, status: number) => {
+		const { message, code } = await editStatus({
+			url: `/users/status/edit?id=${id}`,
+			method: 'post',
+			data: { status, role: role === '管理员' ? 'admin' : 'user' }
+		})
+		setUserList(() => {
+			const list = userList.map(item => {
+				if (item.id === id) {
+					item.status = status
+				}
+				return item
+			})
+			return list
+		})
+		void getUser()
+		void messageApi.open({
+			content: message,
+			type: code === 200 ? 'success' : 'error'
+		})
 	}
 	const columns: ColumnsType<IDataType> = [
 		{
 			title: '序号',
 			key: 'index',
+			dataIndex: 'id',
 			align: 'center',
 			render: (_text, _record, index) => index + 1
 		},
@@ -99,7 +164,7 @@ const Account: FC = () => {
 			render: (_text, record) => (
 				<Switch
 					checked={Boolean(record.status)}
-					onChange={() => changeStatus(record.id, record.status)}
+					onChange={checked => changeStatus(record.id, Number(checked))}
 					size="default"
 				/>
 			)
@@ -136,82 +201,73 @@ const Account: FC = () => {
 			click: exportAccount
 		}
 	]
+
 	useEffect(() => {
-		setUserList([
-			{
-				key: 'admin',
-				id: '1',
-				username: 'admin',
-				role: 'admin',
-				status: 0
-			},
-			{
-				key: 'user',
-				id: '2',
-				username: 'admin',
-				role: 'admin',
-				status: 1
-			}
-		])
 		setLoading(false)
+		void getUser()
 	}, [])
 	return (
-		<div className="p-3 pt-0 pb-0 w-full">
-			{/* 查询条件 */}
-			<Form
-				layout="inline"
-				name="wrap"
-				colon={false}
-				labelAlign="left"
-				labelWrap
-				size="small"
-				className="search-form bg-transparent w-full"
-			>
-				<Form.Item label="账号">
-					<Input
-						placeholder="请输入"
-						style={{
-							marginRight: 20,
-							marginLeft: 80,
-							boxSizing: 'border-box',
-							width: 120
-						}}
+		<Fragment>
+			{contextHolder}
+			<div className="p-3 pt-0 pb-0 w-full">
+				{/* 查询条件 */}
+				<Form
+					layout="inline"
+					name="wrap"
+					colon={false}
+					labelAlign="left"
+					labelWrap
+					size="small"
+					className="search-form bg-transparent w-full"
+				>
+					<Form.Item label="账号">
+						<Input
+							placeholder="请输入"
+							style={{
+								marginRight: 20,
+								marginLeft: 80,
+								boxSizing: 'border-box',
+								width: 120
+							}}
+						/>
+					</Form.Item>
+					{/* 账号状态 */}
+					<Form.Item label="账号状态">
+						<Select placeholder="请选择" style={{ width: 120 }} />
+					</Form.Item>
+					<Form.Item className="ml-auto mr-3">
+						<Button type="primary" htmlType="submit">
+							查询
+						</Button>
+						<Button type="default" htmlType="reset" className="ml-1">
+							重置
+						</Button>
+					</Form.Item>
+				</Form>
+				{/* 按钮组 */}
+				<ButtonGroup btns={btns} />
+				<Table
+					total={total}
+					change={onChange}
+					pageNum={query.pageNum}
+					pageSize={query.pageSize}
+					columns={columns}
+					dataSource={userList}
+					isLoading={loading}
+					options={pageOptions}
+				/>
+				{type && (
+					<Modal
+						type={type}
+						title={title}
+						open={open[type]}
+						close={close}
+						confirm={confirm}
+						data={form[type]}
 					/>
-				</Form.Item>
-				{/* 账号状态 */}
-				<Form.Item label="账号状态">
-					<Select placeholder="请选择" style={{ width: 120 }} />
-				</Form.Item>
-				<Form.Item className="ml-auto mr-3">
-					<Button type="primary" htmlType="submit">
-						查询
-					</Button>
-					<Button type="default" htmlType="reset" className="ml-1">
-						重置
-					</Button>
-				</Form.Item>
-			</Form>
-			{/* 按钮组 */}
-			<ButtonGroup btns={btns} />
-			<Table
-				total={2}
-				change={onChange}
-				pageNum={query.pageNum}
-				pageSize={query.pageSize}
-				columns={columns}
-				dataSource={userList}
-				isLoading={loading}
-				options={pageOptions}
-			/>
-			<Modal
-				type={type}
-				title={title}
-				open={open[type]}
-				close={close}
-				confirm={confirm}
-				data={form[type]}
-			/>
-		</div>
+				)}
+			</div>
+		</Fragment>
 	)
 }
 

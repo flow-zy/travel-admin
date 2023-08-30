@@ -5,8 +5,11 @@ import axios, {
 	type AxiosInstance
 } from 'axios'
 import { message } from 'antd'
+<<<<<<< Updated upstream
 
 import { getToken } from './token'
+=======
+>>>>>>> Stashed changes
 
 import NProgress from '@/config/nprogress'
 
@@ -15,10 +18,17 @@ export interface ResponseData<T> {
 	code: number
 	data: T | null
 }
+<<<<<<< Updated upstream
 const checkPrime = (status: number) => {
 	switch (status) {
 		case 404:
 			void message.error('请求资源不存在')
+=======
+const checkout = (status: number) => {
+	switch (status) {
+		case 404:
+			void message.error('找不到资源')
+>>>>>>> Stashed changes
 			break
 		case 500:
 			void message.error('服务器错误')
@@ -67,7 +77,11 @@ const fetchData = async <T>(
 				},
 			async (error: AxiosError) => {
 				NProgress.done()
+<<<<<<< Updated upstream
 				checkPrime(error.response.status)
+=======
+				checkout(error.response.status)
+>>>>>>> Stashed changes
 				// 响应出错时的处理逻辑
 				return await Promise.reject(error)
 			}

@@ -106,7 +106,7 @@ const Header: FC<Props> = (props: Props) => {
 			content: '退出登录成功稍后将跳转至登录页',
 			onClose: () => {
 				dispatch(log())
-				navigate('/')
+				navigate('/login')
 			}
 		})
 	}

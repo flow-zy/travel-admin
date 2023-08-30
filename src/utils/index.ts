@@ -1,15 +1,18 @@
 import * as XLSX from 'xlsx'
 
 interface Query {
-	pagesize: number
-	pagenum: number
+	pageSize: number
+	pageNum: number
 }
 // 分页数据
 export const pageData = (data: any[], query: Query): any[] => {
+	Object.entries(query).forEach(([key, value]) => {
+		query[key] = Number(value)
+	})
 	return data.filter(
 		(_, i) =>
-			i >= (query.pagenum - 1) * query.pagesize &&
-			i < query.pagesize * query.pagenum
+			i >= (query.pageNum - 1) * query.pageSize &&
+			i < query.pageSize * query.pageNum
 	)
 }
 
@@ -66,4 +69,18 @@ export const getBrowserLang = (): string => {
 		defaultBrowserLang = 'en'
 	}
 	return defaultBrowserLang
+}
+
+// 从路径中去参数
+export const getData = (url: string): any => {
+	const params = url
+		.slice(url.lastIndexOf('?') + 1)
+		.split('&')
+		.reduce((acc, item) => {
+			const [key, value] = item.split('=')
+			acc[key] = value
+			return acc
+		}, {})
+
+	return params
 }
