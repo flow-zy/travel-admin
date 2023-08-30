@@ -4,7 +4,7 @@ import type { BreadcrumbProps } from 'antd'
 import { RightOutlined } from '@ant-design/icons'
 import { useLocation } from 'react-router-dom'
 
-import menuData from '@/mock/menu'
+import menuData from '@/mock/data/menu'
 import { type IMenu } from '@/types'
 
 const config = {

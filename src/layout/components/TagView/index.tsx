@@ -19,7 +19,7 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 
 import { type IMenu } from '@/types'
-import menuData from '@/mock/menu'
+import menuData from '@/mock/data/menu'
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string
 interface DraggableTabPaneProps extends React.HTMLAttributes<HTMLDivElement> {

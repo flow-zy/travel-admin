@@ -9,7 +9,7 @@ import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 import { Sider, TagView, Header, Breadcrumb } from './components'
 
 import { type RootState } from '@/store'
-import data from '@/mock/menu'
+import data from '@/mock/data/menu'
 import { type IMenu } from '@/types'
 import { setIsCollapsed } from '@/store/slice/setting'
 import { Loading } from '@/components'
